@@ -9,12 +9,11 @@
         "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
         "serviceBusApiVersion": "2015-08-01",
         "serviceBusNamespaceName":"servicebus",
-        "serviceBusQueueName":"queue",
-        "serviceBusApiVersion": "2015-08-01" 
+        "serviceBusQueueName":"queue"
     },
     "resources": [{
         "apiVersion": "[variables('serviceBusApiVersion')]",
-        "name": "[parameters('serviceBusNamespaceName')]",
+        "name": "[variables('serviceBusNamespaceName')]",
         "type": "Microsoft.ServiceBus/Namespaces",
         "location": "[variables('location')]",
         "sku": {
@@ -23,13 +22,13 @@
         },
         "resources": [{
             "apiVersion": "[variables('serviceBusApiVersion')]",
-            "name": "[parameters('serviceBusQueueName')]",
+            "name": "[variables('serviceBusQueueName')]",
             "type": "Queues",
             "dependsOn": [
-                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+                "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
             ],
             "properties": {
-                "path": "[parameters('serviceBusQueueName')]"
+                "path": "[variables('serviceBusQueueName')]"
             }
         }]
     }],
