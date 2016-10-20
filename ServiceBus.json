@@ -1,50 +1,24 @@
-{
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
 
-    },
-    "variables": {
-        "location": "[resourceGroup().location]",
-        "defaultSASKeyName": "RootManageSharedAccessKey",
-        "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
-        "serviceBusApiVersion": "2015-08-01",
-        "serviceBusNamespaceName": "servicebus",
-        "serviceBusQueueName": "queue"
-    },
-    "resources": [
-        {
-            "apiVersion": "2015-08-01",
-            "name": "[variables('serviceBusNamespaceName')]",
-            "type": "Microsoft.ServiceBus/namespaces",
-            "location": "[variables('location')]",
-            "sku": {
-                "name": "Standard",
-                "tier": "Standard"
-            },
-            "resources": [
-                {
-                    "apiVersion": "2015-08-01",
-                    "name": "[variables('serviceBusQueueName')]",
-                    "type": "Queues",
-                    "dependsOn": [
-                        "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
-                    ],
-                    "properties": {
-                        "path": "[variables('serviceBusQueueName')]"
-                    }
-                }
-            ]
-        }
-    ],
-    "outputs": {
-        "NamespaceConnectionString": {
-            "type": "string",
-            "value": "[listkeys(variables('authRuleResourceId'), variables('serviceBusApiVersion')).primaryConnectionString]"
-        },
-        "SharedAccessPolicyPrimaryKey": {
-            "type": "string",
-            "value": "[listkeys(variables('authRuleResourceId'), variables('serviceBusApiVersion')).primaryKey]"
-        }
-    }
+{  
+"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-08-01",
+      "name": "SuperSBNamespace",
+      "type": "Microsoft.ServiceBus/namespaces",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "messagingSku": "1"
+      },
+      "resources": [
+      ]
+    }
+  ],
+  "outputs": {
+  }
 }
