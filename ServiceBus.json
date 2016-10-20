@@ -9,7 +9,7 @@
     "resources": [
         {
             "apiVersion": "2015-08-01",
-            "name": "[variables('serviceBusNamespaceName')]",
+            "name": "mcscservicebus",
             "type": "Microsoft.ServiceBus/namespaces",
             "location": "[resourceGroup().location]",
             "properties": {
@@ -21,7 +21,7 @@
                     "name": "[variables('serviceBusQueueName')]",
                     "type": "Queues",
                     "dependsOn": [
-                        "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
+                        "[concat('Microsoft.ServiceBus/namespaces/','mcscservicebus')]"
                     ],
                     "properties": {
                         "path": "[variables('serviceBusQueueName')]"
