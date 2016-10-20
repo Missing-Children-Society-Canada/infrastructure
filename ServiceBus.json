@@ -10,7 +10,8 @@
         "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
         "serviceBusApiVersion": "2015-08-01",
         "serviceBusNamespaceName":"servicebus",
-        "serviceBusQueueName":"queue"
+        "serviceBusQueueName":"queue",
+        "serviceBusApiVersion": "2015-08-01" 
     },
     "resources": [{
         "apiVersion": "[variables('sbVersion')]",
