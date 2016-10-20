@@ -9,8 +9,8 @@
         "defaultSASKeyName": "RootManageSharedAccessKey",
         "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
         "serviceBusApiVersion": "2015-08-01",
-        "serviceBusNamespaceName":"mcsc-service-bus-1",
-        "serviceBusQueueName":"mcsc-queue-1"
+        "serviceBusNamespaceName":"mcscservicebus1",
+        "serviceBusQueueName":"mcscqueue1"
     },
     "resources": [{
         "apiVersion": "[variables('sbVersion')]",
