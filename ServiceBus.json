@@ -2,7 +2,7 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        
+
     },
     "variables": {
         "location": "[resourceGroup().location]",
@@ -16,7 +16,7 @@
         {
             "apiVersion": "2015-08-01",
             "name": "[variables('serviceBusNamespaceName')]",
-            "type": "Microsoft.ServiceBus/Namespaces",
+            "type": "Microsoft.ServiceBus/namespaces",
             "location": "[variables('location')]",
             "sku": {
                 "name": "Standard",
