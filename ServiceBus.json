@@ -2,11 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {},
-    "variables": {},
+    "variables": {
+        "serviceBusNamespaceName": "servicebus",
+        "serviceBusQueueName": "queue1"
+    },
     "resources": [
         {
             "apiVersion": "2015-08-01",
-            "name": "SuperSBNamespace",
+            "name": "[variables('serviceBusNamespaceName')]",
             "type": "Microsoft.ServiceBus/namespaces",
             "location": "[resourceGroup().location]",
             "properties": {
