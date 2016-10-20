@@ -5,7 +5,6 @@
 
     "variables": {
         "location": "[resourceGroup().location]",
-        "sbVersion": "[parameters('serviceBusApiVersion')]",
         "defaultSASKeyName": "RootManageSharedAccessKey",
         "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
         "serviceBusApiVersion": "2015-08-01",
@@ -14,7 +13,7 @@
         "serviceBusApiVersion": "2015-08-01" 
     },
     "resources": [{
-        "apiVersion": "[variables('sbVersion')]",
+        "apiVersion": "[variables('serviceBusApiVersion')]",
         "name": "[parameters('serviceBusNamespaceName')]",
         "type": "Microsoft.ServiceBus/Namespaces",
         "location": "[variables('location')]",
@@ -23,7 +22,7 @@
             "tier": "Standard"
         },
         "resources": [{
-            "apiVersion": "[variables('sbVersion')]",
+            "apiVersion": "[variables('serviceBusApiVersion')]",
             "name": "[parameters('serviceBusQueueName')]",
             "type": "Queues",
             "dependsOn": [
@@ -37,11 +36,11 @@
     "outputs": {
         "NamespaceConnectionString": {
             "type": "string",
-            "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
+            "value": "[listkeys(variables('authRuleResourceId'), variables('serviceBusApiVersion')).primaryConnectionString]"
         },
         "SharedAccessPolicyPrimaryKey": {
             "type": "string",
-            "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryKey]"
+            "value": "[listkeys(variables('authRuleResourceId'), variables('serviceBusApiVersion')).primaryKey]"
         }
     }
 }
