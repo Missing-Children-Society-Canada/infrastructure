@@ -4,6 +4,23 @@
     "parameters": {
         "serviceBusNamespaceName": {
             "value": "MCSCChildFinderBotDEV"
-        }
+        },
+        "serviceBusQueueName1": {
+            "value": "ToStore",
+        },
+        "serviceBusQueueName2": {
+            "value": "ToFilter",
+        },
+        "serviceBusQueueName3": {
+            "value": "ToAugment",
+        },
+        "components_mcsc_webapp_name": {
+            "value": "mcsc-ClientAPI-dev",
+        },
+        "components_mcsc_webapp2_name": {
+            "value": "mcsc-authorization-dev",
+        },
+        "serverfarms_mcscserviceplan_name": {
+            "value": "mcscserviceplan-dev",
+        },
     }
-}

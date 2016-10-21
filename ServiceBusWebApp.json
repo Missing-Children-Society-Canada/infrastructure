@@ -4,26 +4,25 @@
     "parameters": {
         "serviceBusNamespaceName": {
             "type": "string",
-            "metadata": {
-                "description": "Name of the Service Bus Namespace"
-            }
         },
         "serviceBusQueueName1": {
             "type": "string",
-            "defaultValue": "Queue1",
-            "metadata": {
-                "description": "Name of the Service Bus Queue"
-            }
+            "defaultValue": "ToStore",
         },
         "serviceBusQueueName2": {
             "type": "string",
-            "defaultValue": "Queue2",
-            "metadata": {
-                "description": "Name of the Service Bus Queue"
-            }
+            "defaultValue": "ToFilter",
+        },
+        "serviceBusQueueName3": {
+            "type": "string",
+            "defaultValue": "ToAugment",
         },
         "components_mcsc_webapp_name": {
-            "defaultValue": "mcsc-webapp",
+            "defaultValue": "mcsc-ClientAPI",
+            "type": "String"
+        },
+        "components_mcsc_webapp2_name": {
+            "defaultValue": "mcsc-authorization",
             "type": "String"
         },
         "serverfarms_mcscserviceplan_name": {
@@ -31,7 +30,11 @@
             "type": "String"
         },
         "sites_MCSC_webapp_name": {
-            "defaultValue": "MCSC-webapp",
+            "defaultValue": "MCSC-authorization",
+            "type": "String"
+        },
+        "sites_MCSC_webapp2_name": {
+            "defaultValue": "MCSC-ClientAPI",
             "type": "String"
         }
     },
@@ -112,6 +115,44 @@
             },
             "properties": {
                 "name": "[parameters('sites_MCSC_webapp_name')]",
+                "hostNames": [
+                    "mcsc-webapp.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "mcsc-webapp.azurewebsites.net",
+                    "mcsc-webapp.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_MCSC_webapp_name'),'mcsc-webapp.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_MCSC_webapp_name'),'mcsc-webapp.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_mcscserviceplan_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_mcscserviceplan_name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('sites_MCSC_webapp2_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West US",
+            "tags": {
+                "hidden-related:/subscriptions/54a522b6-6cd7-4325-b4e6-566f9d921835/resourcegroups/MCSC-Dev/providers/Microsoft.Web/serverfarms/mcscserviceplan": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_MCSC_webapp2_name')]",
                 "hostNames": [
                     "mcsc-webapp.azurewebsites.net"
                 ],
