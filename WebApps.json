@@ -70,30 +70,30 @@
         },
         {
             "type": "Microsoft.Web/sites",
-            "name": "[parameters('sites_MCSC_webapp_name')]",
+            "name": "[parameters('components_mcsc_webapp_name')]",
             "apiVersion": "2015-08-01",
             "location": "[resourceGroup().location]",
             "tags": {
                 "hidden-related:/subscriptions/54a522b6-6cd7-4325-b4e6-566f9d921835/resourcegroups/MCSC-Dev/providers/Microsoft.Web/serverfarms/mcscserviceplan": "empty"
             },
             "properties": {
-                "name": "[parameters('sites_MCSC_webapp_name')]",
+                "name": "[parameters('components_mcsc_webapp_name')]",
                 "hostNames": [
                     "mcsc-webapp.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "[concat(parameters('sites_MCSC_webapp_name'),'.azurewebsites.net')]",
-                    "[concat(parameters('sites_MCSC_webapp_name'),'.scm.azurewebsites.net')]"
+                    "[concat(parameters('components_mcsc_webapp_name'),'.azurewebsites.net')]",
+                    "[concat(parameters('components_mcsc_webapp_name'),'.scm.azurewebsites.net')]"
                 ],
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_MCSC_webapp_name'),'mcsc-webapp.azurewebsites.net')]",
+                        "name": "[concat(parameters('components_mcsc_webapp_name'),'mcsc-webapp.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
                     },
                     {
-                        "name": "[concat(parameters('sites_MCSC_webapp_name'),'mcsc-webapp.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('components_mcsc_webapp_name'),'mcsc-webapp.scm.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
@@ -108,30 +108,30 @@
         },
         {
             "type": "Microsoft.Web/sites",
-            "name": "[parameters('sites_MCSC_webapp2_name')]",
+            "name": "[parameters('components_mcsc_webapp2_name')]",
             "apiVersion": "2015-08-01",
             "location": "[resourceGroup().location]",
             "tags": {
                 "hidden-related:/subscriptions/54a522b6-6cd7-4325-b4e6-566f9d921835/resourcegroups/MCSC-Dev/providers/Microsoft.Web/serverfarms/mcscserviceplan": "empty"
             },
             "properties": {
-                "name": "[parameters('sites_MCSC_webapp2_name')]",
+                "name": "[parameters('components_mcsc_webapp2_name')]",
                 "hostNames": [
                     "mcsc-webapp.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "[concat(parameters('sites_MCSC_webapp2_name'),'.azurewebsites.net')]",
-                    "[concat(parameters('sites_MCSC_webapp2_name'),'.scm.azurewebsites.net')]"
+                    "[concat(parameters('components_mcsc_webapp2_name'),'.azurewebsites.net')]",
+                    "[concat(parameters('components_mcsc_webapp2_name'),'.scm.azurewebsites.net')]"
                 ],
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_MCSC_webapp_name'),'mcsc-webapp.azurewebsites.net')]",
+                        "name": "[concat(parameters('components_mcsc_webapp2_name'),'mcsc-webapp.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
                     },
                     {
-                        "name": "[concat(parameters('sites_MCSC_webapp_name'),'mcsc-webapp.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('components_mcsc_webapp2_name'),'mcsc-webapp.scm.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
