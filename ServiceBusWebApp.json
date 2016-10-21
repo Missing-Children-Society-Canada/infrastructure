@@ -19,24 +19,24 @@
         },
         "components_mcsc_webapp_name": {
             "defaultValue": "mcsc-ClientAPI",
-            "type": "String"
+            "type": "String",
         },
         "components_mcsc_webapp2_name": {
             "defaultValue": "mcsc-authorization",
-            "type": "String"
+            "type": "String",
         },
         "serverfarms_mcscserviceplan_name": {
             "defaultValue": "mcscserviceplan",
-            "type": "String"
+            "type": "String",
         },
         "sites_MCSC_webapp_name": {
             "defaultValue": "MCSC-authorization",
-            "type": "String"
+            "type": "String",
         },
         "sites_MCSC_webapp2_name": {
             "defaultValue": "MCSC-ClientAPI",
-            "type": "String"
-        }
+            "type": "String",
+        },
     },
     "variables": {
         "sbVersion": "2015-08-01"
