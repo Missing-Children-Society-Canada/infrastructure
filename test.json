@@ -9,9 +9,16 @@
                 "description": "Name of the Service Bus Namespace"
             }
         },
-        "serviceBusQueueName": {
+        "serviceBusQueueName1": {
             "type": "string",
             "defaultValue": "Queue1",
+            "metadata": {
+                "description": "Name of the Service Bus Queue"
+            }
+        },
+        "serviceBusQueueName2": {
+            "type": "string",
+            "defaultValue": "Queue2",
             "metadata": {
                 "description": "Name of the Service Bus Queue"
             }
@@ -30,7 +37,17 @@
             "resources": [
                 {
                     "apiVersion": "[variables('sbVersion')]",
-                    "name": "[parameters('serviceBusQueueName')]",
+                    "name": "[parameters('serviceBusQueueName1')]",
+                    "type": "Queues",
+                    "dependsOn": [
+                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+                    ],
+                    "properties": {},
+                    "resources": []
+                },
+                {
+                    "apiVersion": "[variables('sbVersion')]",
+                    "name": "[parameters('serviceBusQueueName2')]",
                     "type": "Queues",
                     "dependsOn": [
                         "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
