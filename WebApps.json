@@ -14,14 +14,6 @@
             "defaultValue": "mcscserviceplan",
             "type": "String",
         },
-        "sites_MCSC_webapp_name": {
-            "defaultValue": "MCSC-authorization",
-            "type": "String",
-        },
-        "sites_MCSC_webapp2_name": {
-            "defaultValue": "MCSC-ClientAPI",
-            "type": "String",
-        },
     },
     "variables": {
         "sbVersion": "2015-08-01"
@@ -43,6 +35,21 @@
             "dependsOn": []
         },
         {
+            "type": "microsoft.insights/components",
+            "kind": "web",
+            "name": "[parameters('components_mcsc_webapp2_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "hidden-link:/subscriptions/54a522b6-6cd7-4325-b4e6-566f9d921835/resourceGroups/MCSC-Dev/providers/Microsoft.Web/sites/MCSC-webapp": "Resource"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('components_mcsc_webapp2_name')]"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
             "type": "Microsoft.Web/serverfarms",
             "sku": {
                 "name": "S1",
@@ -53,7 +60,7 @@
             },
             "name": "[parameters('serverfarms_mcscserviceplan_name')]",
             "apiVersion": "2015-08-01",
-            "location": "West US",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "name": "[parameters('serverfarms_mcscserviceplan_name')]",
                 "numberOfWorkers": 1
@@ -65,7 +72,7 @@
             "type": "Microsoft.Web/sites",
             "name": "[parameters('sites_MCSC_webapp_name')]",
             "apiVersion": "2015-08-01",
-            "location": "West US",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "hidden-related:/subscriptions/54a522b6-6cd7-4325-b4e6-566f9d921835/resourcegroups/MCSC-Dev/providers/Microsoft.Web/serverfarms/mcscserviceplan": "empty"
             },
@@ -75,8 +82,8 @@
                     "mcsc-webapp.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "mcsc-webapp.azurewebsites.net",
-                    "mcsc-webapp.scm.azurewebsites.net"
+                    "[concat(parameters('sites_MCSC_webapp_name'),'.azurewebsites.net')]"
+                    "[concat(parameters('sites_MCSC_webapp_name'),'.scm.azurewebsites.net')]"
                 ],
                 "hostNameSslStates": [
                     {
@@ -103,7 +110,7 @@
             "type": "Microsoft.Web/sites",
             "name": "[parameters('sites_MCSC_webapp2_name')]",
             "apiVersion": "2015-08-01",
-            "location": "West US",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "hidden-related:/subscriptions/54a522b6-6cd7-4325-b4e6-566f9d921835/resourcegroups/MCSC-Dev/providers/Microsoft.Web/serverfarms/mcscserviceplan": "empty"
             },
