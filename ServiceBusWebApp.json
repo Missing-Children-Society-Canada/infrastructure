@@ -4,7 +4,7 @@
     "parameters": {
         "serviceBusNamespaceName": {
             "type": "string",
-            "defaultValue": "MCSCSBNamespace",
+            "defaultValue": "GEN-UNIQUE",
             "metadata": {
                 "description": "Name of the Service Bus Namespace"
             }
