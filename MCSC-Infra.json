@@ -1,0 +1,194 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces_SuperSBNamespace_name": {
+            "defaultValue": "SuperSBNamespace",
+            "type": "String"
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "defaultValue": "SuperSBNamespace/RootManageSharedAccessKey",
+            "type": "String"
+        },
+        "queues_queue1_name": {
+            "defaultValue": "SuperSBNamespace/queue1",
+            "type": "String"
+        },
+        "queues_queue2_name": {
+            "defaultValue": "SuperSBNamespace/queue2",
+            "type": "String"
+        },
+        "queues_queue3_name": {
+            "defaultValue": "SuperSBNamespace/queue3",
+            "type": "String"
+        },
+        "queues_queue4_name": {
+            "defaultValue": "SuperSBNamespace/queue4",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2015-08-01",
+            "name": "[parameters('namespaces_SuperSBNamespace_name')]",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.ServiceBus/namespaces",
+            "sku": {
+                "name": "Standard",
+                "tier": "Standard",
+                "capacity": 1
+            },
+            "kind": "Messaging",
+            "properties": {
+                "provisioningState": "Succeeded",
+                "status": "Active",
+                "createdAt": "2016-10-20T23:19:08.78Z",
+                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_SuperSBNamespace_name'),'.servicebus.windows.net:443/')]",
+                "enabled": true
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "type": "Microsoft.ServiceBus/namespaces/AuthorizationRules",
+            "name": "[parameters('AuthorizationRules_RootManageSharedAccessKey_name')]",
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+            ]
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "name": "[parameters('queues_queue1_name')]",
+            "properties": {
+                "maxSizeInMegabytes": 16384,
+                "requiresDuplicateDetection": false,
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "14.00:00:00",
+                "deadLetteringOnMessageExpiration": false,
+                "enableBatchedOperations": true,
+                "isAnonymousAccessible": false,
+                "status": "Active",
+                "supportOrdering": false,
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 0,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "enablePartitioning": true,
+                "enableExpress": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "name": "[parameters('queues_queue2_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "maxSizeInMegabytes": 16384,
+                "requiresDuplicateDetection": false,
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "14.00:00:00",
+                "deadLetteringOnMessageExpiration": false,
+                "enableBatchedOperations": true,
+                "isAnonymousAccessible": false,
+                "status": "Active",
+                "supportOrdering": false,
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 0,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "enablePartitioning": true,
+                "enableExpress": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+            ]
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "name": "[parameters('queues_queue3_name')]",
+            "properties": {
+                "maxSizeInMegabytes": 16384,
+                "requiresDuplicateDetection": false,
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "14.00:00:00",
+                "deadLetteringOnMessageExpiration": false,
+                "enableBatchedOperations": true,
+                "isAnonymousAccessible": false,
+                "status": "Active",
+                "supportOrdering": false,
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 0,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "enablePartitioning": true,
+                "enableExpress": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+            ]
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "name": "[parameters('queues_queue4_name')]",
+            "properties": {
+                "maxSizeInMegabytes": 16384,
+                "requiresDuplicateDetection": false,
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "14.00:00:00",
+                "deadLetteringOnMessageExpiration": false,
+                "enableBatchedOperations": true,
+                "isAnonymousAccessible": false,
+                "status": "Active",
+                "supportOrdering": false,
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 0,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "enablePartitioning": true,
+                "enableExpress": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+            ]
+        }
+    ]
+}
