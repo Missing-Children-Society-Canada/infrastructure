@@ -82,7 +82,7 @@
                     "mcsc-webapp.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "[concat(parameters('sites_MCSC_webapp_name'),'.azurewebsites.net')]"
+                    "[concat(parameters('sites_MCSC_webapp_name'),'.azurewebsites.net')]",
                     "[concat(parameters('sites_MCSC_webapp_name'),'.scm.azurewebsites.net')]"
                 ],
                 "hostNameSslStates": [
@@ -120,8 +120,8 @@
                     "mcsc-webapp.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "mcsc-webapp.azurewebsites.net",
-                    "mcsc-webapp.scm.azurewebsites.net"
+                    "[concat(parameters('sites_MCSC_webapp2_name'),'.azurewebsites.net')]",
+                    "[concat(parameters('sites_MCSC_webapp2_name'),'.scm.azurewebsites.net')]"
                 ],
                 "hostNameSslStates": [
                     {
