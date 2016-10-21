@@ -2,18 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serviceBusNamespaceName": {
-            "value": "MCSCChildFinderBotDEV"
-        },
-        "serviceBusQueueName1": {
-            "value": "ToStore",
-        },
-        "serviceBusQueueName2": {
-            "value": "ToFilter",
-        },
-        "serviceBusQueueName3": {
-            "value": "ToAugment",
-        },
         "components_mcsc_webapp_name": {
             "value": "mcsc-ClientAPI-dev",
         },
