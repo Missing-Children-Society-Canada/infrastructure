@@ -31,7 +31,7 @@
     "resources": [
         {
             "apiVersion": "2015-08-01",
-            "name": "[parameters('namespaces_SuperSBNamespace_name')]",
+            "name": "[parameters('namespaces_SBNamespace_name')]",
             "location": "[resourceGroup().location]",
             "type": "Microsoft.ServiceBus/namespaces",
             "sku": {
@@ -44,7 +44,7 @@
                 "provisioningState": "Succeeded",
                 "status": "Active",
                 "createdAt": "2016-10-20T23:19:08.78Z",
-                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_SuperSBNamespace_name'),'.servicebus.windows.net:443/')]",
+                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_SBNamespace_name'),'.servicebus.windows.net:443/')]",
                 "enabled": true
             },
             "resources": [],
@@ -63,7 +63,7 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SBNamespace_name'))]"
             ]
         },
         {
@@ -94,7 +94,7 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SBNamespace_name'))]"
             ]
         },
         {
@@ -125,7 +125,7 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SBNamespace_name'))]"
             ]
         },
         {
@@ -156,7 +156,7 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SBNamespace_name'))]"
             ]
         },
         {
@@ -187,7 +187,7 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SuperSBNamespace_name'))]"
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_SBNamespace_name'))]"
             ]
         }
     ]
