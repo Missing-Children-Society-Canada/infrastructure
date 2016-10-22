@@ -55,7 +55,7 @@
             "properties": {
                 "name": "[parameters('sites_MCSC_Authorization_name')]",
                 "hostNames": [
-                    "mcsc-authorization.azurewebsites.net"
+                    "mcsc-authorization-dev.azurewebsites.net"
                 ],
                 "enabledHostNames": [
                     "mcsc-authorization-dev.azurewebsites.net",
@@ -93,7 +93,7 @@
             "properties": {
                 "name": "[parameters('sites_MCSC_ClientAPI_name')]",
                 "hostNames": [
-                    "mcsc-clientapi.azurewebsites.net"
+                    "mcsc-clientapi-dev.azurewebsites.net"
                 ],
                 "enabledHostNames": [
                     "mcsc-clientapi-dev.azurewebsites.net",
