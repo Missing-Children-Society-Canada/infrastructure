@@ -26,21 +26,6 @@
     "variables": {},
     "resources": [
         {
-            "type": "microsoft.insights/components",
-            "kind": "web",
-            "name": "[parameters('components_mcsc_clientapi_name')]",
-            "apiVersion": "2014-04-01",
-            "location": "[resourceGroup().location]",
-            "tags": {
-                "hidden-link:/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/Webapptest/providers/Microsoft.Web/sites/MCSC-ClientAPI": "Resource"
-            },
-            "properties": {
-                "ApplicationId": "[parameters('components_mcsc_clientapi_name')]"
-            },
-            "resources": [],
-            "dependsOn": []
-        },
-        {
             "type": "Microsoft.Web/serverfarms",
             "sku": {
                 "name": "S1",
@@ -55,21 +40,6 @@
             "properties": {
                 "name": "[parameters('serverfarms_webappplan_name')]",
                 "numberOfWorkers": 1
-            },
-            "resources": [],
-            "dependsOn": []
-        },
-        {
-            "type": "microsoft.insights/components",
-            "kind": "web",
-            "name": "[parameters('components_mcsc_authorization_name')]",
-            "apiVersion": "2014-04-01",
-            "location": "[resourceGroup().location]",
-            "tags": {
-                "hidden-link:/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/test/providers/Microsoft.Web/sites/MCSC-Authorization": "Resource"
-            },
-            "properties": {
-                "ApplicationId": "[parameters('components_mcsc_authorization_name')]"
             },
             "resources": [],
             "dependsOn": []
