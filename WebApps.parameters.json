@@ -10,9 +10,6 @@
         },
         "serverfarms_mcscserviceplan_name": {
             "value": "mcscserviceplan-dev",
-        },
-        "sites_MCSC_webapp_name":{
-
         }
     }
 }
