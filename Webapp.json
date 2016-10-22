@@ -58,8 +58,8 @@
                     "mcsc-authorization.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "mcsc-authorization.azurewebsites.net",
-                    "mcsc-authorization.scm.azurewebsites.net"
+                    "mcsc-authorization-dev.azurewebsites.net",
+                    "mcsc-authorization-dev.scm.azurewebsites.net"
                 ],
                 "hostNameSslStates": [
                     {
@@ -96,8 +96,8 @@
                     "mcsc-clientapi.azurewebsites.net"
                 ],
                 "enabledHostNames": [
-                    "mcsc-clientapi.azurewebsites.net",
-                    "mcsc-clientapi.scm.azurewebsites.net"
+                    "mcsc-clientapi-dev.azurewebsites.net",
+                    "mcsc-clientapi-dev.scm.azurewebsites.net"
                 ],
                 "hostNameSslStates": [
                     {
