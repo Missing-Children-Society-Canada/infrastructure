@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_MCSC_ClientAPI_name": {
+            "type": "string",
+            "defaultValue": "MCSC-ClientAPI"
+        },
+        "sites_MCSC_Authorization_name": {
+            "type": "string",
+            "defaultValue": "mcsc-authorization"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "appinsights",
+            "type": "Microsoft.Insights/components",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2014-04-01",
+            "dependsOn": [
+                "[concat('Microsoft.Web/sites/', parameters('sites_MCSC_ClientAPI_name'))]"
+            ],
+            "tags": {
+                "displayName": "[concat('AppInsight-',parameters('sites_MCSC_ClientAPI_name'))]"
+            },
+            "properties": {
+                "applicationId": "[parameters('sites_MCSC_ClientAPI_name')]"
+            }
+        },
+        {
+            "name": "appinsights",
+            "type": "Microsoft.Insights/components",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2014-04-01",
+            "dependsOn": [
+                "[concat('Microsoft.Web/sites/', parameters('sites_MCSC_Authorization_name'))]"
+            ],
+            "tags": {
+                "displayName": "[concat('AppInsight-',parameters('sites_MCSC_Authorization_name'))]"
+            },
+            "properties": {
+                "applicationId": "[parameters('sites_MCSC_Authorization_name')]"
+            }
+        }
+    ]
+}
