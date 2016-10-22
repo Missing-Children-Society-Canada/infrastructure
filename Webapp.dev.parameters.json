@@ -10,6 +10,12 @@
         },
         "sites_MCSC_ClientAPI_name": {
             "value": "MCSC-ClientAPI-dev"
+        },
+        "components_mcsc_authorization_name": {
+            "value": "mcsc-authorization-dev"
+        },
+        "sites_MCSC_Authorization_name": {
+            "value": "mcsc-authorization-dev"
         }
     }
 }
