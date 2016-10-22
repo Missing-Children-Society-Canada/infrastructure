@@ -1,0 +1,96 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "components_mcsc_authorization_name": {
+            "defaultValue": "mcsc-authorization",
+            "type": "String"
+        },
+        "serverfarms_mcsc_web_app_plan_name": {
+            "defaultValue": "mcsc-web-app-plan",
+            "type": "String"
+        },
+        "sites_MCSC_Authorization_name": {
+            "defaultValue": "MCSC-Authorization",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/test/providers/microsoft.insights/components/mcsc-authorization'.",
+            "type": "microsoft.insights/components",
+            "kind": "web",
+            "name": "[parameters('components_mcsc_authorization_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "hidden-link:/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/test/providers/Microsoft.Web/sites/MCSC-Authorization": "Resource"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('components_mcsc_authorization_name')]"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/test/providers/Microsoft.Web/serverfarms/mcsc-web-app-plan'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
+            },
+            "name": "[parameters('serverfarms_mcsc_web_app_plan_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('serverfarms_mcsc_web_app_plan_name')]",
+                "numberOfWorkers": 1
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/test/providers/Microsoft.Web/sites/MCSC-Authorization'.",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('sites_MCSC_Authorization_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "hidden-related:/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourcegroups/test/providers/Microsoft.Web/serverfarms/mcsc-web-app-plan": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_MCSC_Authorization_name')]",
+                "hostNames": [
+                    "mcsc-authorization.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "mcsc-authorization.azurewebsites.net",
+                    "mcsc-authorization.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_MCSC_Authorization_name'),'mcsc-authorization.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_MCSC_Authorization_name'),'mcsc-authorization.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_mcsc_web_app_plan_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_mcsc_web_app_plan_name'))]"
+            ]
+        }
+    ]
+}
