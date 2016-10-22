@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "components_mcsc_authorization_name": {
-            "value": "mcsc-authorization"
+            "value": "mcsc-authorization-dev"
         },
         "serverfarms_mcsc_web_app_plan_name": {
-            "value": "mcsc-web-app-plan"
+            "value": "mcsc-web-app-plan-dev"
         },
         "sites_MCSC_Authorization_name": {
-            "value": "mcsc-authorization"
+            "value": "mcsc-authorization-dev"
         }
     }
 }

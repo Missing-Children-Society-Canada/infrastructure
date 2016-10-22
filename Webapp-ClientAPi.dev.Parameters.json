@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "components_mcsc_clientapi_name": {
-            "value": "MCSC-ClientAPI"
+            "value": "MCSC-ClientAPI-dev"
         },
         "serverfarms_webappplan_name": {
-            "value": "mcsc-web-app-plan"
+            "value": "mcsc-web-app-plan-dev"
         },
         "sites_MCSC_ClientAPI_name": {
-            "value": "MCSC-ClientAPI"
+            "value": "MCSC-ClientAPI-dev"
         }
     }
 }
