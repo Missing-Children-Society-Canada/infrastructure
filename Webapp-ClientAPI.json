@@ -1,0 +1,96 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "components_mcsc_clientapi_name": {
+            "defaultValue": "mcsc-clientapi",
+            "type": "String"
+        },
+        "serverfarms_webappplan_name": {
+            "defaultValue": "webappplan",
+            "type": "String"
+        },
+        "sites_MCSC_ClientAPI_name": {
+            "defaultValue": "MCSC-ClientAPI",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/Webapptest/providers/microsoft.insights/components/mcsc-clientapi'.",
+            "type": "microsoft.insights/components",
+            "kind": "web",
+            "name": "[parameters('components_mcsc_clientapi_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "East US",
+            "tags": {
+                "hidden-link:/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/Webapptest/providers/Microsoft.Web/sites/MCSC-ClientAPI": "Resource"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('components_mcsc_clientapi_name')]"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/Webapptest/providers/Microsoft.Web/serverfarms/webappplan'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
+            },
+            "name": "[parameters('serverfarms_webappplan_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "East US",
+            "properties": {
+                "name": "[parameters('serverfarms_webappplan_name')]",
+                "numberOfWorkers": 1
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourceGroups/Webapptest/providers/Microsoft.Web/sites/MCSC-ClientAPI'.",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('sites_MCSC_ClientAPI_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "East US",
+            "tags": {
+                "hidden-related:/subscriptions/fcb3335a-768c-4579-ad67-39570ac755b7/resourcegroups/Webapptest/providers/Microsoft.Web/serverfarms/webappplan": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_MCSC_ClientAPI_name')]",
+                "hostNames": [
+                    "mcsc-clientapi.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "mcsc-clientapi.azurewebsites.net",
+                    "mcsc-clientapi.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_MCSC_ClientAPI_name'),'mcsc-clientapi.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_MCSC_ClientAPI_name'),'mcsc-clientapi.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_webappplan_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_webappplan_name'))]"
+            ]
+        }
+    ]
+}
