@@ -63,13 +63,13 @@
                 ],
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_MCSC_Authorization_name'),'mcsc-authorization.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_MCSC_Authorization_name'),'mcsc-authorization-dev.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
                     },
                     {
-                        "name": "[concat(parameters('sites_MCSC_Authorization_name'),'mcsc-authorization.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_MCSC_Authorization_name'),'mcsc-authorization-dev.scm.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
@@ -101,13 +101,13 @@
                 ],
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_MCSC_ClientAPI_name'),'mcsc-clientapi.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_MCSC_ClientAPI_name'),'mcsc-clientapi-dev.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
                     },
                     {
-                        "name": "[concat(parameters('sites_MCSC_ClientAPI_name'),'mcsc-clientapi.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_MCSC_ClientAPI_name'),'mcsc-clientapi-dev.scm.azurewebsites.net')]",
                         "sslState": 0,
                         "thumbprint": null,
                         "ipBasedSslState": 0
