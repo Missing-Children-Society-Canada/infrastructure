@@ -48,6 +48,16 @@
                     ],
                     "properties": {},
                     "resources": []
+                },
+                {
+                    "apiVersion": "[variables('sbVersion')]",
+                    "name": "[parameters('serviceBusQueueName3')]",
+                    "type": "Queues",
+                    "dependsOn": [
+                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+                    ],
+                    "properties": {},
+                    "resources": []
                 }
             ]
         }
