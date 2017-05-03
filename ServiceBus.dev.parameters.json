@@ -6,13 +6,13 @@
             "value": "MCSCChildFinderBotDEV"
         },
         "serviceBusQueueName1": {
-            "value": "ToStore",
+            "value": "ToStore"
         },
         "serviceBusQueueName2": {
-            "value": "ToFilter",
+            "value": "ToFilter"
         },
         "serviceBusQueueName3": {
-            "value": "ToAugment",
-        },
+            "value": "ToAugment"
+        }
     }
 }

@@ -4,11 +4,11 @@
     "parameters": {
         "databaseAccounts_missingchildrendata_name": {
             "defaultValue": null,
-            "type": "SecureString"
+            "type": "securestring"
         },
         "databaseAccounts_missingchildrendata_name_1": {
             "defaultValue": "missingchildrendata",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {},

@@ -4,23 +4,23 @@
     "parameters": {
         "components_mcsc_clientapi_name": {
             "defaultValue": "MCSC-ClientAPI",
-            "type": "String"
+            "type": "string"
         },
         "serverfarms_webappplan_name": {
             "defaultValue": "mcsc-web-app-plan",
-            "type": "String"
+            "type": "string"
         },
         "sites_MCSC_ClientAPI_name": {
             "defaultValue": "MCSC-ClientAPI",
-            "type": "String"
+            "type": "string"
         },
         "components_mcsc_authorization_name": {
             "defaultValue": "mcsc-authorization",
-            "type": "String"
+            "type": "string"
         },
         "sites_MCSC_Authorization_name": {
             "defaultValue": "MCSC-Authorization",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {},

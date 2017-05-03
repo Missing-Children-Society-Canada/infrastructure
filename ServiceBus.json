@@ -3,20 +3,20 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceBusNamespaceName": {
-            "type": "string",
+            "type": "string"
         },
         "serviceBusQueueName1": {
             "type": "string",
-            "defaultValue": "ToStore",
+            "defaultValue": "ToStore"
         },
         "serviceBusQueueName2": {
             "type": "string",
-            "defaultValue": "ToFilter",
+            "defaultValue": "ToFilter"
         },
         "serviceBusQueueName3": {
             "type": "string",
-            "defaultValue": "ToAugment",
-        },
+            "defaultValue": "ToAugment"
+        }
     },
     "variables": {
         "sbVersion": "2015-08-01"
