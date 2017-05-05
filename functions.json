@@ -10,7 +10,8 @@
         }
     },
     "variables": {
-        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfuncstor')]",
+        "hostingPlanName": "[concat(parameters('appName'), '-plan')]",
+        "storageAccountName": "[concat('storage', uniquestring(resourceGroup().id))]",
         "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
         "repoUrl": "https://github.com/Missing-Children-Society-Canada/messaging.git",
         "branch": "master"
@@ -22,16 +23,16 @@
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "properties": {
-                "accountType": "Standard_ZRS"
+                "accountType": "Standard_LRS"
             }
         },
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2015-04-01",
-            "name": "[parameters('appName')]",
+            "name": "[variables('hostingPlanName')]",
             "location": "[resourceGroup().location]",
             "properties": {
-                "name": "[parameters('appName')]",
+                "name": "[variables('hostingPlanName')]",
                 "computeMode": "Dynamic",
                 "sku": "Dynamic"
             }
@@ -76,24 +77,9 @@
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('appName'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
             ],
             "resources": [
-                {
-                    "apiVersion": "2016-03-01",
-                    "name": "appsettings",
-                    "type": "config",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', parameters('appName'))]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "properties": {
-                        "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]", 
-                        "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]", 
-                        "FUNCTIONS_EXTENSION_VERSION": "latest"
-                    }
-                },                
                 {
                     "apiVersion": "2015-08-01",
                     "name": "web",
