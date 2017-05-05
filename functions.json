@@ -11,6 +11,7 @@
     },
     "variables": {
         "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfuncstor')]",
+        "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
         "repoUrl": "https://github.com/Missing-Children-Society-Canada/messaging.git",
         "branch": "master"
     },
@@ -61,7 +62,7 @@
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
-                            "value": "[toLower(variables('functionAppName'))]"
+                            "value": "[toLower(parameters('appName'))]"
                         },
                         {
                             "name": "FUNCTIONS_EXTENSION_VERSION",
