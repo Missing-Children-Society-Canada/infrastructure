@@ -11,8 +11,8 @@
     },
     "variables": {
         "functionAppName": "[parameters('appName')]",
-        "hostingPlanName": "[parameters('appName')]",
-        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]",
+        "hostingPlanName": "[parameters('appName')]-host",
+        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfuncstor')]",
         "repoUrl": "https://github.com/Missing-Children-Society-Canada/messaging.git",
         "branch": "master"
     },
