@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schemas.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json#",
+    "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appName": {
@@ -11,10 +11,10 @@
     },
     "variables": {
         "hostingPlanName": "[concat(parameters('appName'), '-plan')]",
+        "repoURL": "https://github.com/Missing-Children-Society-Canada/messaging.git",
+        "branch": "master",
         "storageAccountName": "[concat('storage', uniquestring(resourceGroup().id))]",
-        "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-        "repoUrl": "https://github.com/Missing-Children-Society-Canada/messaging.git",
-        "branch": "master"
+        "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
     },
     "resources": [
         {
@@ -38,14 +38,15 @@
             }
         },
         {
-            "apiVersion": "2015-08-01",
+            "apiVersion": "2015-04-01",
             "type": "Microsoft.Web/sites",
             "name": "[parameters('appName')]",
             "location": "[resourceGroup().location]",
             "kind": "functionapp",
             "properties": {
                 "name": "[parameters('appName')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appName'))]","hostingEnvironment": "",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+                "hostingEnvironment": "",
                 "clientAffinityEnabled": false,
                 "siteConfig": {
                     "appSettings": [
@@ -93,7 +94,7 @@
                         "IsManualIntegration": true
                     }
                 }
-			]
+            ]
         }
     ]
 }
