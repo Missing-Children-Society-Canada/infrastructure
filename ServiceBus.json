@@ -1,66 +1,183 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "serviceBusNamespaceName": {
-            "type": "string"
-        },
-        "serviceBusQueueName1": {
-            "type": "string",
-            "defaultValue": "ToStore"
-        },
-        "serviceBusQueueName2": {
-            "type": "string",
-            "defaultValue": "ToFilter"
-        },
-        "serviceBusQueueName3": {
-            "type": "string",
-            "defaultValue": "ToAugment"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serviceBusNamespaceName": {
+      "type": "string",
+      "defaultValue": "MCSCChildFinderBot",
+      "metadata": {
+        "description": "Name of the Service Bus Namespace"
+      }
     },
-    "variables": {
-        "sbVersion": "2015-08-01"
+    "facebook_media_store_queue_name": {
+      "type": "string",
+      "defaultValue": "facebook_media_store",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
     },
-    "resources": [
+    "facebook_profile_store_queue_name": {
+      "type": "string",
+      "defaultValue": "facebook_profile_store",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
+    },
+    "instagram_media_store_queue_name": {
+      "type": "string",
+      "defaultValue": "instagram_media_store",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
+    },
+    "instagram_profile_store_queue_name": {
+      "type": "string",
+      "defaultValue": "instagram_profile_store",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
+    },
+    "tofilter_queue_name": {
+      "type": "string",
+      "defaultValue": "tofilter",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
+    },
+    "twitter_media_store_queue_name": {
+      "type": "string",
+      "defaultValue": "twitter_media_store",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
+    },
+    "twitter_profile_store_queue_name": {
+      "type": "string",
+      "defaultValue": "twitter_profile_store",
+      "metadata": {
+        "description": "Name of the Service Bus Queue"
+      }
+    },
+    "augment_topic_name": {
+        "type": "string",
+        "metadata": {
+            "description": "Name of the Service Bus Topic"
+    }
+
+}    
+  },
+  "variables": {
+    "sbVersion": "2015-08-01"
+  },
+  "resources": [
+    {
+      "apiVersion": "[variables('sbVersion')]",
+      "name": "[parameters('serviceBusNamespaceName')]",
+      "type": "Microsoft.ServiceBus/namespaces",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      },
+      "resources": [
         {
             "apiVersion": "[variables('sbVersion')]",
-            "name": "[parameters('serviceBusNamespaceName')]",
-            "type": "Microsoft.ServiceBus/namespaces",
-            "location": "[resourceGroup().location]",
-            "properties": {},
+            "name": "[parameters('facebook_media_store_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
             "resources": [
-                {
-                    "apiVersion": "[variables('sbVersion')]",
-                    "name": "[parameters('serviceBusQueueName1')]",
-                    "type": "Queues",
-                    "dependsOn": [
-                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-                    ],
-                    "properties": {},
-                    "resources": []
-                },
-                {
-                    "apiVersion": "[variables('sbVersion')]",
-                    "name": "[parameters('serviceBusQueueName2')]",
-                    "type": "Queues",
-                    "dependsOn": [
-                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-                    ],
-                    "properties": {},
-                    "resources": []
-                },
-                {
-                    "apiVersion": "[variables('sbVersion')]",
-                    "name": "[parameters('serviceBusQueueName3')]",
-                    "type": "Queues",
-                    "dependsOn": [
-                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-                    ],
-                    "properties": {},
-                    "resources": []
-                }
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('facebook_profile_store_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
+            "resources": [
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('instagram_media_store_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
+            "resources": [
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('instagram_profile_store_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
+            "resources": [
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('tofilter_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
+            "resources": [
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('twitter_media_store_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
+            "resources": [
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('twitter_profile_store_queue_name')]",
+            "type": "Queues",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+            },
+            "resources": [
+            ]
+        },
+        {
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[parameters('augment_topic_name')]",
+            "type": "Topics",
+            "dependsOn": [
+                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
+            ],
+            "properties": {
+                "path": "[parameters('augment_topic_name')]"
+            },
+            "resources": [
             ]
         }
-    ],
-    "outputs": {}
+      ]
+    }
+  ],
+  "outputs": {
+  }
 }

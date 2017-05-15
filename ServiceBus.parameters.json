@@ -3,16 +3,31 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceBusNamespaceName": {
-            "value": "MCSCChildFinderBotDEV"
+            "value": "PLMCSCChildFinder"
         },
-        "serviceBusQueueName1": {
-            "value": "ToStore"
+        "facebook_media_store_queue_name": {
+            "value": "facebook_media_store"
         },
-        "serviceBusQueueName2": {
-            "value": "ToFilter"
+        "facebook_profile_store_queue_name": {
+            "value": "facebook_profile_store"
         },
-        "serviceBusQueueName3": {
-            "value": "ToAugment"
+        "instagram_media_store_queue_name": {
+            "value": "instagram_media_store"
+        },
+        "instagram_profile_store_queue_name": {
+            "value": "instagram_profile_store"
+        },
+        "tofilter_queue_name": {
+            "value": "tofilter"
+        },
+        "twitter_media_store_queue_name": {
+            "value": "twitter_media_store"
+        },
+        "twitter_profile_store_queue_name": {
+            "value": "twitter_profile_store"
+        },
+        "augment_topic_name": {
+            "value": "toaugment"
         }
     }
 }
