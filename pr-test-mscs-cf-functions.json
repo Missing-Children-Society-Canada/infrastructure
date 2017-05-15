@@ -94,20 +94,7 @@
 				}, {
 					"name": "AzureWebJobsDashboard",
 					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
-				}],
-                "siteConfig": {
-                    "phpVersion": "off",
-                    "appSettings": [
-                        {
-                            "Name": "AzureWebJobsServiceBus",
-                            "Value": "[parameters('AzureWebJobsServiceBus')]"
-                        },
-                        {
-                            "Name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "Value": "4.4.7"
-                        }
-                    ]
-                }
+				}]
 			}
 		},
 		"dependsOn": [
