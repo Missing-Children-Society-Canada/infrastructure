@@ -5,26 +5,20 @@
         "serviceBusNamespaceName": {
             "value": "PLMCSCChildFinder"
         },
-        "facebook_media_store_queue_name": {
-            "value": "facebook_media_store"
+        "facebook_socialmedia_prefix": {
+            "value": "facebook"
         },
-        "facebook_profile_store_queue_name": {
-            "value": "facebook_profile_store"
+        "instagram_socialmedia_prefix": {
+            "value": "instagram"
         },
-        "instagram_media_store_queue_name": {
-            "value": "instagram_media_store"
-        },
-        "instagram_profile_store_queue_name": {
-            "value": "instagram_profile_store"
+        "twitter_socialmedia_prefix": {
+            "value": "twitter"
         },
         "tofilter_queue_name": {
             "value": "tofilter"
         },
-        "twitter_media_store_queue_name": {
-            "value": "twitter_media_store"
-        },
-        "twitter_profile_store_queue_name": {
-            "value": "twitter_profile_store"
+        "tostructure_queue_name": {
+            "value": "tostructure"
         },
         "augment_topic_name": {
             "value": "toaugment"
