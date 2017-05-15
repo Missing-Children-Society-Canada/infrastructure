@@ -8,6 +8,19 @@
                 "description": "mscs-cf-functions"
             }
         },
+		"sku": {
+			"type": "string",
+			"allowedValues": [
+				"Free",
+				"Shared",
+				"Basic",
+				"Standard"
+			],
+			"defaultValue": "Standard",
+			"metadata": {
+				"description": "The pricing tier for the hosting plan."
+			}
+		},
 		"storageAccountType": {
 			"type": "string",
 			"defaultValue": "Standard_LRS",
@@ -50,13 +63,7 @@
 		"location": "[resourceGroup().location]",
 		"properties": {
 			"name": "[variables('hostingPlanName')]",
-            "sku": {
-                "name": "Y1",
-                "tier": "Dynamic",
-                "size": "Y1",
-                "family": "Y",
-                "capacity": 0
-                },
+			"sku": "[parameters('sku')]",
 			"hostingEnvironment": "",
 			"numberOfWorkers": 1
 		}
