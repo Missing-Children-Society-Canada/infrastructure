@@ -3,6 +3,7 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
         "appName": {
+            "value": "mscs-cf-functions",
             "type": "string",
             "metadata": {
                 "description": "mscs-cf-functions"
