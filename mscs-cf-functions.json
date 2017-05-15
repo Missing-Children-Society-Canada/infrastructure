@@ -5,7 +5,7 @@
         "appName": {
             "type": "string",
             "metadata": {
-                "description": "The name of the function app that you wish to create."
+                "description": "mscs-cf-functions"
             }
         }
     },
@@ -33,16 +33,24 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "name": "[variables('hostingPlanName')]",
+                "numberOfWorkers": 1,
                 "computeMode": "Dynamic",
-                "sku": "Dynamic"
-            }
+            "sku": {
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
+                }
+            },
+            "dependsOn": []
         },
         {
-            "apiVersion": "2015-04-01",
             "type": "Microsoft.Web/sites",
+            "kind": "functionapp",
+            "apiVersion": "2015-04-01",
             "name": "[parameters('appName')]",
             "location": "[resourceGroup().location]",
-            "kind": "functionapp",
             "properties": {
                 "name": "[parameters('appName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
@@ -73,6 +81,20 @@
                         {
                             "name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "value": "6.5.0"
+                        }
+                    ],
+                    "hostNameSslStates": [
+                        {
+                            "name": "[parameters('appName'),'.azurewebsites.net')]",
+                            "sslState": 0,
+                            "thumbprint": null,
+                            "ipBasedSslState": 0
+                        },
+                        {
+                            "name": "[parameters('appName'),'.scm.azurewebsites.net')]",
+                            "sslState": 0,
+                            "thumbprint": null,
+                            "ipBasedSslState": 0
                         }
                     ]
                 }
