@@ -26,6 +26,12 @@
     "variables": {
 
     },
+      "repoURL": {
+      "type": "string",
+      "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal",
+      "metadata": {
+      "description": "The URL for the GitHub repository that contains the project to deploy."
+      },
     "resources": [
         {
             "type": "Microsoft.Web/serverfarms",
@@ -46,14 +52,7 @@
             "resources": [],
             "dependsOn": []
         },
-      "repoURL": {
-      "type": "string",
-      "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal",
-      "metadata": {
-        "description": "The URL for the GitHub repository that contains the project to deploy."
-      },
-      }
-        {
+             {
             "type": "Microsoft.Web/sites",
             "name": "[parameters('sites_MCSC_Authorization_name')]",
             "apiVersion": "2015-08-01",
