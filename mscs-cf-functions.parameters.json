@@ -6,16 +6,16 @@
       "value": "mscs-cf-functions"
     },
     "sku": {
-      "Value": "Standard"
+      "value": "Standard"
     },
     "storageAccountType": {
-      "Value": "Standard_LRS"
+      "value": "Standard_LRS"
     },
     "repoURL": {
-      "Value": "https://github.com/Missing-Children-Society-Canada/messaging"
+      "value": "https://github.com/Missing-Children-Society-Canada/messaging"
     },
-		"branch": {
-			"Value": "master"
-		}
+    "branch": {
+      "value": "master"
+    }
   }
 }
