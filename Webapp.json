@@ -24,14 +24,14 @@
         }
     },
     "variables": {
-        
+
     },
     "resources": [
         {
             "type": "Microsoft.Web/serverfarms",
             "sku": {
                 "name": "S1",
-                "tier": "Standard",
+                "tier": "Standard",-[]
                 "size": "S1",
                 "family": "S",
                 "capacity": 1
@@ -46,6 +46,13 @@
             "resources": [],
             "dependsOn": []
         },
+      "repoURL": {
+      "type": "string",
+      "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal",
+      "metadata": {
+        "description": "The URL for the GitHub repository that contains the project to deploy."
+      },
+      }
         {
             "type": "Microsoft.Web/sites",
             "name": "[parameters('sites_MCSC_Authorization_name')]",
