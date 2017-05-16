@@ -1,122 +1,118 @@
 {
-    "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
+	"$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
         "appName": {
             "type": "string",
             "metadata": {
                 "description": "mscs-cf-functions"
             }
-        }
-    },
-    "variables": {
-        "hostingPlanName": "[concat(parameters('appName'), '-plan')]",
-        "repoURL": "https://github.com/Missing-Children-Society-Canada/messaging.git",
-        "branch": "master",
-        "storageAccountName": "[concat('storage', uniquestring(resourceGroup().id))]",
-        "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-    },
-    "resources": [
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageAccountName')]",
-            "apiVersion": "2015-06-15",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "accountType": "Standard_LRS"
-            }
         },
-        {
-            "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2015-04-01",
-            "name": "[variables('hostingPlanName')]",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "name": "[variables('hostingPlanName')]",
-                "numberOfWorkers": 1,
-                "computeMode": "Dynamic",
-            "sku": {
-                "name": "Y1",
-                "tier": "Dynamic",
-                "size": "Y1",
-                "family": "Y",
-                "capacity": 0
-                }
-            },
-            "dependsOn": []
-        },
-        {
-            "type": "Microsoft.Web/sites",
-            "kind": "functionapp",
-            "apiVersion": "2015-04-01",
-            "name": "[parameters('appName')]",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "name": "[parameters('appName')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
-                "hostingEnvironment": "",
-                "clientAffinityEnabled": false,
-                "siteConfig": {
-                    "appSettings": [
-                        {
-                            "name": "AzureWebJobsDashboard",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                        },
-                        {
-                            "name": "AzureWebJobsStorage",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                        },
-                        {
-                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                        },
-                        {
-                            "name": "WEBSITE_CONTENTSHARE",
-                            "value": "[toLower(parameters('appName'))]"
-                        },
-                        {
-                            "name": "FUNCTIONS_EXTENSION_VERSION",
-                            "value": "~1"
-                        },
-                        {
-                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "value": "6.5.0"
-                        }
-                    ],
-                    "hostNameSslStates": [
-                        {
-                            "name": "[parameters('appName'),'.azurewebsites.net')]",
-                            "sslState": 0,
-                            "thumbprint": null,
-                            "ipBasedSslState": 0
-                        },
-                        {
-                            "name": "[parameters('appName'),'.scm.azurewebsites.net')]",
-                            "sslState": 0,
-                            "thumbprint": null,
-                            "ipBasedSslState": 0
-                        }
-                    ]
-                }
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
-            ],
-            "resources": [
-                {
-                    "apiVersion": "2015-08-01",
-                    "name": "web",
-                    "type": "sourcecontrols",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
-                    ],
-                    "properties": {
-                        "RepoUrl": "[variables('repoURL')]",
-                        "branch": "[variables('branch')]",
-                        "IsManualIntegration": true
-                    }
-                }
-            ]
-        }
-    ]
+		"sku": {
+			"type": "string",
+			"allowedValues": [
+				"Free",
+				"Shared",
+				"Basic",
+				"Standard"
+			],
+			"defaultValue": "Standard",
+			"metadata": {
+				"description": "The pricing tier for the hosting plan."
+			}
+		},
+		"storageAccountType": {
+			"type": "string",
+			"defaultValue": "Standard_LRS",
+			"allowedValues": [
+				"Standard_LRS",
+				"Standard_GRS",
+				"Standard_ZRS",
+				"Premium_LRS"
+			],
+			"metadata": {
+				"description": "Storage Account type"
+			}
+		},
+		"repoURL": {
+			"type": "string",
+			"defaultValue": "https://github.com/pierreroman/messaging"
+		},
+		"branch": {
+			"type": "string",
+			"defaultValue": "master"
+		}
+	},
+	"variables": {
+		"functionAppName": "[parameters('appName')]",
+		"hostingPlanName": "[concat(parameters('appName'), '-plan')]",
+		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]"
+	},
+	"resources": [{
+		"type": "Microsoft.Storage/storageAccounts",
+		"name": "[variables('storageAccountName')]",
+		"apiVersion": "2015-06-15",
+		"location": "[resourceGroup().location]",
+		"properties": {
+			"accountType": "[parameters('storageAccountType')]"
+		}
+	}, {
+		"type": "Microsoft.Web/serverfarms",
+		"apiVersion": "2015-04-01",
+		"name": "[variables('hostingPlanName')]",
+		"location": "[resourceGroup().location]",
+		"properties": {
+			"name": "[variables('hostingPlanName')]",
+			"sku": "[parameters('sku')]",
+			"hostingEnvironment": "",
+			"numberOfWorkers": 1
+		}
+	}, {
+		"apiVersion": "2015-08-01",
+		"type": "Microsoft.Web/sites",
+		"name": "[parameters('appName')]",
+		"location": "[resourceGroup().location]",
+		"kind": "functionapp",
+		"properties": {
+			"name": "[parameters('appName')]",
+			"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+			"hostingEnvironment": "",
+			"clientAffinityEnabled": false,
+			"siteConfig": {
+				"alwaysOn": true,
+				"cors": {
+					"allowedOrigins": [
+						"*"
+					]
+				},
+				"appSettings": [{
+					"name": "FUNCTIONS_EXTENSION_VERSION",
+					"value": "~1"
+				}, {
+					"name": "AzureWebJobsStorage",
+					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}, {
+					"name": "AzureWebJobsDashboard",
+					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}]
+			}
+		},
+		"dependsOn": [
+			"[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+			"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+		],
+		"resources": [{
+			"apiVersion": "2015-08-01",
+			"name": "web",
+			"type": "sourcecontrols",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/Sites', variables('functionAppName'))]"
+			],
+			"properties": {
+				"RepoUrl": "[parameters('repoURL')]",
+				"branch": "[parameters('branch')]",
+				"IsManualIntegration": true
+			}
+		}]
+	}]
 }
