@@ -3,22 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceBusNamespaceName": {
-            "value": "PLMCSCChildFinder"
-        },
-        "facebook_socialmedia_prefix": {
-            "value": "facebook"
-        },
-        "instagram_socialmedia_prefix": {
-            "value": "instagram"
-        },
-        "twitter_socialmedia_prefix": {
-            "value": "twitter"
+            "value": "MCSCChildFinder"
         },
         "tofilter_queue_name": {
             "value": "tofilter"
         },
         "tostructure_queue_name": {
             "value": "tostructure"
+        },
+        "tostore_queue_name": {
+            "value": "tostore"
         },
         "augment_topic_name": {
             "value": "toaugment"
