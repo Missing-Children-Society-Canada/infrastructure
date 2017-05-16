@@ -1,12 +1,19 @@
 #!/bin/bash
 
+# install azurecli
+
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ wheezy main" | \
+     sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+sudo apt-key adv --keyserver packages.microsoft.com --recv-keys 417A0893
+sudo apt-get install apt-transport-https
+sudo apt-get update && sudo apt-get install azure-cli
+
 # Set variables for the new account, database, and collection
 
 echo '*****************************************************'
 echo '             variables'
 echo '*****************************************************'
-echo ' '
-
 
 resourceGroupName='mcsc-test'
 location='westus'
@@ -19,7 +26,6 @@ socialscollectionName='socials'
 echo '*****************************************************'
 echo '             Resource Group'
 echo '*****************************************************'
-echo ' '
 
 # Create a resource group
 az group create \
@@ -29,7 +35,6 @@ az group create \
 echo '*****************************************************'
 echo '             DB account'
 echo '*****************************************************'
-echo ' '
 
 # Create a MongoDB API Cosmos DB account
 az cosmosdb create \
@@ -42,7 +47,8 @@ az cosmosdb create \
 echo '*****************************************************'
 echo '             create DB'
 echo '*****************************************************'
-echo ' '
+
+echo 'Create Reporting Database'
 
 # Create a database
 value=$(az cosmosdb database exists --db-name $reportingdatabaseName --resource-group-name $resourceGroupName --name $name)
@@ -57,6 +63,8 @@ fi
 
 # Create a database
 
+echo 'Create Users Database'
+
 value=$(az cosmosdb database exists --db-name $userdatabaseName --resource-group-name $resourceGroupName --name $name)
 
 if [ $value != 'true' ]
@@ -70,10 +78,8 @@ fi
 echo '*****************************************************'
 echo '             create collections'
 echo '*****************************************************'
-echo ' '
 
-
-echo 'create collection profile'
+echo 'create collection events'
 
 # Create a collection
 
@@ -85,7 +91,6 @@ value=$(az cosmosdb collection exists \
 
 if [ $value != 'true' ]
 then
-
 az cosmosdb collection create \
 	--collection-name $eventscollectionName \
 	--name $name \
@@ -94,6 +99,8 @@ az cosmosdb collection create \
 fi
 
 # Create a collection
+
+echo 'create collection socials'
 
 value=$(az cosmosdb collection exists \
 	--collection-name $socialscollectionName \
@@ -110,3 +117,4 @@ az cosmosdb collection create \
         --resource-group $resourceGroupName
 fi
 
+echo 'done'
