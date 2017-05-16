@@ -4,6 +4,18 @@
   "parameters": {
     "appName": {
       "value": "mscs-cf-functions"
-    }
+    },
+    "sku": {
+      "Value": "Standard"
+    },
+    "storageAccountType": {
+      "Value": "Standard_LRS"
+    },
+    "repoURL": {
+      "Value": "https://github.com/Missing-Children-Society-Canada/messaging"
+    },
+		"branch": {
+			"Value": "master"
+		}
   }
 }
