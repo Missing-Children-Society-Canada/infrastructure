@@ -4,7 +4,7 @@
     "parameters": {
         "logicAppName": {
             "type": "string",
-            "defaultValue": "plLogicApp",
+            "defaultValue": "twitter-pull",
             "metadata": {
                 "description": "The name for the logic app."
             }
@@ -17,7 +17,7 @@
         },
         "serviceBusConnectionName": {
             "type": "string",
-            "defaultValue": "sbConnection",
+            "defaultValue": "serviceBusConnection",
             "metadata": {
                 "description": "The name for the Service Bus connection."
             }
