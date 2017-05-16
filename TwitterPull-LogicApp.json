@@ -1,140 +1,160 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "logicAppName": {
             "type": "string",
+            "defaultValue": "plLogicApp",
             "metadata": {
-                "description": "The name of the logic app to create."
+                "description": "The name for the logic app."
             }
         },
-        "testUri": {
-            "type": "string",
-            "defaultValue": "http://azure.microsoft.com/en-us/status/feed/",
+        "serviceBusConnectionString": {
+            "type": "securestring",
             "metadata": {
-            "description": "A test URI"
+                "description": "The Azure Service Bus namespace connection string."
+            }
+        },
+        "serviceBusConnectionName": {
+            "type": "string",
+            "defaultValue": "sbConnection",
+            "metadata": {
+                "description": "The name for the Service Bus connection."
+            }
+        },
+        "serviceBusQueueName": {
+            "type": "string",
+            "defaultValue": "tofilter",
+            "metadata": {
+            "description": "The name of the queue to add a message to."
+            }
+        },
+        "twitterConnectionName": {
+            "type": "string",
+            "defaultValue": "twitterConnection",
+            "metadata": {
+            "description": "The name of the queue to add a message to."
             }
         }
     },
     "variables": {
+        "$singleQuote":"'"
     },
     "resources": [
-        {
-            "type": "Microsoft.Logic/workflows",
-            "name": "[parameters('logicAppName')]",
-            "apiVersion": "2016-06-01",
-            "location": "westus",
-            "properties": {
-                "definition": {
-                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {
-                        "$connections": {
-                            "defaultValue": {},
-                            "type": "Object"
-                            }
-                    },
-                    "triggers": {
-                        "When_a_new_tweet_is_posted": {
-                            "recurrence": {
-                                "frequency": "Minute",
-                                "interval": 1
-                            },
-                            "splitOn": "@triggerBody()?.value",
-                            "type": "ApiConnection",
-                            "inputs": {
-                                "host": {
-                                    "api": {
-                                        "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/twitter"
-                                    },
-                                    "connection": {
-                                        "name": "@parameters('$connections')['twitter']['connectionId']"
-                                    }
+    {
+        "type": "Microsoft.Web/connections",
+        "apiVersion": "2016-06-01",
+        "location": "[resourceGroup().location]",
+        "name": "[parameters('serviceBusConnectionName')]",
+        "properties": {
+            "api": {
+                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]"
+            },
+            "displayName": "servicebus",
+            "parameterValues": {
+                "connectionString": "[parameters('serviceBusConnectionString')]"
+            }
+        }
+    },
+    {
+        "type": "Microsoft.Web/connections",
+        "apiVersion": "2016-06-01",
+        "location": "[resourceGroup().location]",
+        "name": "[parameters('twitterConnectionName')]",
+        "properties": {
+            "api": {
+                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/twitter')]"
+            },
+            "displayName": "twitter",
+            "parameterValues": {}
+        }
+    },
+    {
+        "type": "Microsoft.Logic/workflows",
+        "apiVersion": "2016-06-01",
+        "name": "[parameters('logicAppName')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnectionName'))]",
+            "[resourceId('Microsoft.Web/connections', parameters('twitterConnectionName'))]"
+        ],
+        "properties": {
+            "definition": {
+                "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                    "$connections": {
+                        "defaultValue": {},
+                        "type": "Object"
+                    }
+                },
+                "triggers": {
+                    "When_a_new_tweet_is_posted": {
+                        "recurrence": {
+                            "frequency": "Minute",
+                            "interval": 1
+                        },
+                        "splitOn": "@triggerBody()?.value",
+                        "type": "ApiConnection",
+                        "inputs": {
+                            "host": {
+                                "api": {
+                                    "runtimeUrl": "[concat('https://logic-apis-', resourceGroup().location, '.azure-apim.net/apim/twitter')]"
                                 },
-                                "method": "get",
-                                "path": "/onnewtweet",
-                                "queries": {
-                                    "searchQuery": "HFMTest"
+                                "connection": {
+                                    "name": "@parameters('$connections')['twitter']['connectionId']"
                                 }
+                            },
+                            "method": "get",
+                            "path": "/onnewtweet",
+                            "queries": {
+                                "searchQuery": "HFMTest"
                             }
                         }
-                    },
-                    "actions": {
-                        "Send_message": {
-                            "runAfter": {},
-                            "type": "ApiConnection",
-                            "inputs": {
-                                "body": {
+                    }
+                },
+                "actions": {
+                    "Send_message": {
+                        "runAfter": {},
+                        "type": "ApiConnection",
+                        "inputs": {
+                            "body": {
                                 "ContentData": "@{base64(json(concat('{\"mediaid\":\"',triggerBody()?['TweetId'],'\",\"userid\":\"',triggerBody()?['UserDetails']?['Id'],'\",\"platform\":\"twitter\"}')))}",
                                 "ContentType": "application/json"
-                                },
-                                "host": {
+                            },
+                            "host": {
                                 "api": {
-                                    "runtimeUrl": "https://logic-apis-westus.azure-apim.net/apim/servicebus"
+                                    "runtimeUrl": "[concat('https://logic-apis-', resourceGroup().location, '.azure-apim.net/apim/servicebus')]"
                                 },
                                 "connection": {
                                     "name": "@parameters('$connections')['servicebus']['connectionId']"
                                 }
-                                },
-                                "method": "post",
-                                "path": "/@{encodeURIComponent('tofilter')}/messages"
-                            }
+                            },
+                            "method": "post",
+                            "path": "/@{encodeURIComponent('tofilter')}/messages"
                         }
-                    },
-                    "outputs": {}
+                    }
                 },
-                "parameters": {
-                    "$connections": {
-                        "value": {
+                "outputs": {}
+            },
+            "parameters": {
+                "$connections": {
+                    "value": {
                         "servicebus": {
-                            "connectionId": "/subscriptions/ee41ddbb-5294-4318-a45b-944738c3f363/resourceGroups/MCSC-ChildFinderBot-dev/providers/Microsoft.Web/connections/servicebus",
-                            "connectionName": "servicebus",
-                            "id": "/subscriptions/ee41ddbb-5294-4318-a45b-944738c3f363/providers/Microsoft.Web/locations/westus/managedApis/servicebus"
+                            "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]",
+                            "connectionId": "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnectionName'))]",
+                            "connectionName": "servicebus"
                         },
                         "twitter": {
-                            "connectionId": "/subscriptions/ee41ddbb-5294-4318-a45b-944738c3f363/resourceGroups/MCSC-ChildFinderBot-dev/providers/Microsoft.Web/connections/twitter",
-                            "connectionName": "twitter",
-                            "id": "/subscriptions/ee41ddbb-5294-4318-a45b-944738c3f363/providers/Microsoft.Web/locations/westus/managedApis/twitter"
+                            "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/twitter')]",
+                            "connectionId": "[resourceId('Microsoft.Web/connections', parameters('twitterConnectionName'))]",
+                            "connectionName": "twitter"
                         }
-                        }
-                    }
-                },
-                "endpointsConfiguration": {
-                    "workflow": {
-                        "outgoingIpAddresses": [
-                            {
-                                "address": "52.160.92.112"
-                            },
-                            {
-                                "address": "40.118.244.241"
-                            },
-                            {
-                                "address": "40.118.241.243"
-                            }
-                            ],
-                            "accessEndpointIpAddresses": [
-                            {
-                                "address": "52.160.90.237"
-                            },
-                            {
-                                "address": "138.91.188.137"
-                            },
-                            {
-                                "address": "13.91.252.184"
-                            }
-                        ]
-                    },
-                    "connector": {
-                        "outgoingIpAddresses": [
-                            {
-                                "address": "104.40.51.248"
-                            }
-                        ]
                     }
                 }
-            },
-            "dependsOn": []
+            }
         }
+    }
     ],
-  "outputs": {}
+    "outputs": {}
 }

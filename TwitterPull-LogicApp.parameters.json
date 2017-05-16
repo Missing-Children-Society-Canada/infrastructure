@@ -5,8 +5,17 @@
     "logicAppName": {
       "value": "twitter-pull"
     },
-    "testUri": {
-      "value": "http://azure.microsoft.com/en-us/status/feed/"
+    "servicebusconnectionString": {
+      "value":"GEN-PASSWORD"
+    },
+    "servicebusConnectionName": {
+      "value":"serviceBusConnection"
+    },
+    "servicebusQueueName": {
+    "value":"myQueue"
+    },
+    "twitterConnectionName": {
+      "value":"twitterConnection"
     }
   }
 }
