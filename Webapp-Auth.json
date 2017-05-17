@@ -7,24 +7,55 @@
             "type": "string"
         },
         "DOC_DB": {
+            "defaultValue": "",
             "type": "string"
         },
         "AUTH_KEY": {
+            "defaultValue": "",
             "type": "string"
         },
         "TWITTER_CONSUMER_KEY": {
+            "defaultValue": "",
             "type": "string"
         },
         "TWITTER_CONSUMER_SECRET": {
+            "defaultValue": "",
             "type": "string"
         },
         "ROOT": {
+            "defaultValue": "",
             "type": "string"
         },
         "APP_INSIGHTS_KEY": {
+            "defaultValue": "",
             "type": "string"
         },
         "IG_VERIFY_TOKEN": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "FACEBOOK_CONSUMER_KEY": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "FACEBOOK_CONSUMER_SECRET": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "INSTAGRAM_CONSUMER_KEY": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "INSTAGRAM_CONSUMER_SECRET": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "PORTAL_APP_INSIGHTS_KEY": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "WEBSITE_NODE_DEFAULT_VERSION": {
+            "defaultValue": "",
             "type": "string"
         },
         "repoURL": {
@@ -74,12 +105,41 @@
                         },
                         {
                             "Name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "Value": "4.4.7"
+                            "Value": "[parameters('WEBSITE_NODE_DEFAULT_VERSION')]"
                         },
                         {
                             "Name": "IG_VERIFY_TOKEN",
                             "Value": "[parameters('IG_VERIFY_TOKEN')]"
-                        }
+                        },
+                        {
+                            "Name": "FACEBOOK_CONSUMER_KEY",
+                            "Value": "[parameters('IG_VERIFY_TOKEN')]"
+                        },
+
+                        {
+                            "Name": "FACEBOOK_CONSUMER_SECRET",
+                            "Value": "[parameters('FACEBOOK_CONSUMER_SECRET')]"
+                        },
+
+                        {
+                            "Name": "INSTAGRAM_CONSUMER_KEY",
+                            "Value": "[parameters('INSTAGRAM_CONSUMER_KEY')]"
+                        },
+
+                        {
+                            "Name": "INSTAGRAM_CONSUMER_SECRET",
+                            "Value": "[parameters('INSTAGRAM_CONSUMER_SECRET')]"
+                        },
+
+                        {
+                            "Name": "PORTAL_APP_INSIGHTS_KEY",
+                            "Value": "[parameters('PORTAL_APP_INSIGHTS_KEY')]"
+                        },
+
+                        {
+                            "Name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "Value": "[parameters('IG_VERIFY_TOKEN')]"
+                        },
                     ],
                 "RepoUrl": "[parameters('repoURL')]",
                 "branch": "[parameters('branch')]",

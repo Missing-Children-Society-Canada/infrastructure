@@ -26,6 +26,24 @@
         "IG_VERIFY_TOKEN": {
            "value": ""
         },
+        "FACEBOOK_CONSUMER_KEY": {
+           "value": ""
+        },
+        "FACEBOOK_CONSUMER_SECRET": {
+           "value": ""
+        },
+        "INSTAGRAM_CONSUMER_KEY": {
+           "value": ""
+        },
+        "INSTAGRAM_CONSUMER_SECRET": {
+           "value": ""
+        },
+        "PORTAL_APP_INSIGHTS_KEY": {
+           "value": ""
+        },
+        "AUTH_WEBSITE_NODE_DEFAULT_VERSION": {
+           "value": ""
+        },
         "repoURL": {
             "value": "https://github.com/Missing-Children-Society-Canada/authorization.git"
         },
