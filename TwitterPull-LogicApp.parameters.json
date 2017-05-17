@@ -8,10 +8,10 @@
     "serviceBusNamespaceName": {
       "value":"MCSCChildFinder"
     },
-    "servicebusConnectionName": {
+    "serviceBusConnectionName": {
       "value":"serviceBusConnection"
     },
-    "servicebusQueueName": {
+    "serviceBusQueueName": {
     "value":"toFilter"
     },
     "twitterConnectionName": {
