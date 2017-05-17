@@ -5,8 +5,8 @@
     "logicAppName": {
       "value": "twitter-pull"
     },
-    "servicebusconnectionString": {
-      "value":"GEN-PASSWORD"
+    "serviceBusNamespaceName": {
+      "value":"MCSCChildFinder"
     },
     "servicebusConnectionName": {
       "value":"serviceBusConnection"
