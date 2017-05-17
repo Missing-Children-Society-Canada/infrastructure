@@ -139,7 +139,7 @@
                         {
                             "Name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "Value": "[parameters('IG_VERIFY_TOKEN')]"
-                        },
+                        }
                     ],
                 "RepoUrl": "[parameters('repoURL')]",
                 "branch": "[parameters('branch')]",

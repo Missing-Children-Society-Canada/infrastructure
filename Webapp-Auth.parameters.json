@@ -41,7 +41,7 @@
         "PORTAL_APP_INSIGHTS_KEY": {
            "value": ""
         },
-        "AUTH_WEBSITE_NODE_DEFAULT_VERSION": {
+        "WEBSITE_NODE_DEFAULT_VERSION": {
            "value": ""
         },
         "repoURL": {
