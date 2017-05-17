@@ -54,10 +54,6 @@
             "defaultValue": "",
             "type": "string"
         },
-        "WEBSITE_NODE_DEFAULT_VERSION": {
-            "defaultValue": "",
-            "type": "string"
-        },
         "repoURL": {
             "type": "string",
             "defaultValue": "https://github.com/Missing-Children-Society-Canada/authorization.git"

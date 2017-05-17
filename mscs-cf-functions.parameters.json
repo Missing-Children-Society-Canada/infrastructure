@@ -5,9 +5,6 @@
     "appName": {
       "value": "mscs-cf-functions"
     },
-    "sku": {
-      "value": "Standard"
-    },
     "storageAccountType": {
       "value": "Standard_LRS"
     },

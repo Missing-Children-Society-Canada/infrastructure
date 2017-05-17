@@ -8,28 +8,9 @@
                 "description": "mscs-cf-functions"
             }
         },
-		"sku": {
-			"type": "string",
-			"allowedValues": [
-				"Free",
-				"Shared",
-				"Basic",
-				"Standard"
-			],
-			"defaultValue": "Standard",
-			"metadata": {
-				"description": "The pricing tier for the hosting plan."
-			}
-		},
 		"storageAccountType": {
 			"type": "string",
 			"defaultValue": "Standard_LRS",
-			"allowedValues": [
-				"Standard_LRS",
-				"Standard_GRS",
-				"Standard_ZRS",
-				"Premium_LRS"
-			],
 			"metadata": {
 				"description": "Storage Account type"
 			}
@@ -62,10 +43,7 @@
 		"name": "[variables('hostingPlanName')]",
 		"location": "[resourceGroup().location]",
 		"properties": {
-			"name": "[variables('hostingPlanName')]",
-			"sku": "[parameters('sku')]",
-			"hostingEnvironment": "",
-			"numberOfWorkers": 1
+			"name": "[variables('hostingPlanName')]"
 		}
 	}, {
 		"apiVersion": "2015-08-01",

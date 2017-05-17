@@ -41,9 +41,6 @@
         "PORTAL_APP_INSIGHTS_KEY": {
            "value": ""
         },
-        "WEBSITE_NODE_DEFAULT_VERSION": {
-           "value": ""
-        },
         "repoURL": {
             "value": "https://github.com/Missing-Children-Society-Canada/authorization.git"
         },
