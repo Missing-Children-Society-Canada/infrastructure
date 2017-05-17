@@ -137,7 +137,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "platform = 'facebook'"
+                                "sqlExpression": "platform=1"
                             }
                         }
                     }]
@@ -159,7 +159,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "hasfacebook = 'true'"
+                                "sqlExpression": "hasfacebook=1"
                             }
                         }
                     }]
@@ -181,7 +181,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "platform = 'instagram'"
+                                "sqlExpression": "platform=1"
                             }
                         }
                     }]
