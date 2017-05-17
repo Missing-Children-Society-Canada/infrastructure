@@ -159,7 +159,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "isfacebook = 'true'"
+                                "sqlExpression": "hasfacebook = 'true'"
                             }
                         }
                     }]
@@ -203,7 +203,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "isinstagram = 'true'"
+                                "sqlExpression": "hasinstagram = 'true'"
                             }
                         }
                     }]
@@ -247,7 +247,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "istwitter = 'true'"
+                                "sqlExpression": "hastwitter = 'true'"
                             }
                         }
                     }]
