@@ -37,7 +37,7 @@
                             "Name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "Value": "4.4.7"
                         }
-                    ],
+                    ]
                 },
                 "RepoUrl": "[parameters('repoURL')]",
                 "branch": "[parameters('branch')]",
