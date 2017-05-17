@@ -4,7 +4,7 @@
   "parameters": {
     "serviceBusNamespaceName": {
       "type": "string",
-      "defaultValue": "MCSCChildFinderBot",
+      "defaultValue": "MCSCChildFinder",
       "metadata": {
         "description": "Name of the Service Bus Namespace"
       }
@@ -248,6 +248,28 @@
                         "properties": {
                             "filter": {
                                 "sqlExpression": "hastwitter=1"
+                            }
+                        }
+                    }]
+                },
+                {
+                    "apiVersion": "[variables('sbVersion')]",
+                    "name": "notify",
+                    "type": "Subscriptions",
+                    "dependsOn": [
+                        "[parameters('augment_topic_name')]"
+                    ],
+                    "properties": {},
+                    "resources": [{
+                        "apiVersion": "[variables('sbVersion')]",
+                        "name": "notify_rule",
+                        "type": "Rules",
+                        "dependsOn": [
+                            "notify"
+                        ],
+                        "properties": {
+                            "filter": {
+                                "sqlExpression": "1=1"
                             }
                         }
                     }]

@@ -11,7 +11,7 @@
         },
         "serviceBusNamespaceName": {
             "type": "string",
-            "defaultValue": "MCSCChildFinderBot",
+            "defaultValue": "MCSCChildFinder",
             "metadata": {
                 "description": "The Azure Service Bus namespace connection string."
             }

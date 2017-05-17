@@ -21,7 +21,7 @@
             "kind": "TextAnalytics",
             "name": "[parameters('CognitiveTextName')]",
             "apiVersion": "2016-02-01-preview",
-            "location": "[resourceGroup().location]",
+            "location": "westus",
             "properties": {},
             "dependsOn": []
         }
