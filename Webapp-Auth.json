@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_MCSC_Authorization_name": {
-            "defaultValue": "mcsc-authorization",
+            "defaultValue": "",
             "type": "string"
         },
         "DOC_DB": {
