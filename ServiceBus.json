@@ -4,7 +4,7 @@
   "parameters": {
     "serviceBusNamespaceName": {
       "type": "string",
-      "defaultValue": "MCSCChildFinderBot",
+      "defaultValue": "MCSCChildFinder",
       "metadata": {
         "description": "Name of the Service Bus Namespace"
       }
