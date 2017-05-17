@@ -22,6 +22,15 @@
         },
         "APP_INSIGHTS_KEY": {
             "value": ""
+        },
+        "IG_VERIFY_TOKEN": {
+           "value": ""
+        },
+        "repoURL": {
+            "value": "https://github.com/Missing-Children-Society-Canada/authorization.git"
+        },
+        "branch": {
+            "value": "master"
         }
     }
 }
