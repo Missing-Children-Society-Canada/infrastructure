@@ -37,15 +37,8 @@
 		"properties": {
 			"accountType": "[parameters('storageAccountType')]"
 		}
-	}, {
-		"type": "Microsoft.Web/serverfarms",
-		"apiVersion": "2015-04-01",
-		"name": "[variables('hostingPlanName')]",
-		"location": "[resourceGroup().location]",
-		"properties": {
-			"name": "[variables('hostingPlanName')]"
-		}
-	}, {
+	},
+	{
 		"apiVersion": "2015-08-01",
 		"type": "Microsoft.Web/sites",
 		"name": "[parameters('appName')]",
@@ -53,11 +46,9 @@
 		"kind": "functionapp",
 		"properties": {
 			"name": "[parameters('appName')]",
-			"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
 			"hostingEnvironment": "",
 			"clientAffinityEnabled": false,
 			"siteConfig": {
-				"alwaysOn": true,
 				"cors": {
 					"allowedOrigins": [
 						"*"
@@ -76,7 +67,6 @@
 			}
 		},
 		"dependsOn": [
-			"[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
 			"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
 		],
 		"resources": [{
