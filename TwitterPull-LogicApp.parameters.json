@@ -16,6 +16,9 @@
     },
     "twitterConnectionName": {
       "value":"twitterConnection"
+    },
+    "twitterHashtag": {
+      "value":"HFMTest"
     }
   }
 }

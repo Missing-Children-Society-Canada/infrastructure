@@ -36,6 +36,13 @@
             "metadata": {
             "description": "The name of the queue to add a message to."
             }
+        },
+        "twitterHashtag": {
+            "type": "string",
+            "defaultValue": "HFMTest",
+            "metadata": {
+            "description": "The Hashtag we are tracking in Twitter"
+            }
         }
     },
     "variables": {
@@ -113,7 +120,7 @@
                             "method": "get",
                             "path": "/onnewtweet",
                             "queries": {
-                                "searchQuery": "HFMTest"
+                                "searchQuery": "[parameters('twitterHashtag')]"
                             }
                         }
                     }
