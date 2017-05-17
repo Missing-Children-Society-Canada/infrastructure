@@ -2,10 +2,10 @@
 	"$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-        "appName": {
+        "functionAppsName": {
             "type": "string",
             "metadata": {
-                "description": "mscs-cf-functions"
+                "description": "mcsc-supporting-api"
             }
         },
 		"sku": {
@@ -36,7 +36,7 @@
 		},
 		"repoURL": {
 			"type": "string",
-			"defaultValue": "https://github.com/Missing-Children-Society-Canada/messaging"
+			"defaultValue": "https://github.com/Missing-Children-Society-Canada/supporting-apis"
 		},
 		"branch": {
 			"type": "string",
@@ -44,8 +44,7 @@
 		}
 	},
 	"variables": {
-		"functionAppName": "[parameters('appName')]",
-		"hostingPlanName": "[concat(parameters('appName'), '-plan')]",
+		"hostingPlanName": "[concat(parameters('functionAppsName'), '-plan')]",
 		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]"
 	},
 	"resources": [{
@@ -74,7 +73,7 @@
 		"location": "[resourceGroup().location]",
 		"kind": "functionapp",
 		"properties": {
-			"name": "[parameters('appName')]",
+			"name": "[parameters('functionAppsName')]",
 			"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
 			"hostingEnvironment": "",
 			"clientAffinityEnabled": false,
@@ -106,7 +105,7 @@
 			"name": "web",
 			"type": "sourcecontrols",
 			"dependsOn": [
-				"[resourceId('Microsoft.Web/Sites', variables('functionAppName'))]"
+				"[resourceId('Microsoft.Web/Sites', parameters('functionAppsName'))]"
 			],
 			"properties": {
 				"RepoUrl": "[parameters('repoURL')]",
