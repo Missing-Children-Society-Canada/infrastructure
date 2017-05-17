@@ -9,8 +9,9 @@
                 "description": "The name for the logic app."
             }
         },
-        "serviceBusConnectionString": {
-            "type": "securestring",
+        "serviceBusNamespaceName": {
+            "type": "string",
+            "defaultValue": "MCSCChildFinderBot",
             "metadata": {
                 "description": "The Azure Service Bus namespace connection string."
             }
@@ -38,7 +39,11 @@
         }
     },
     "variables": {
-        "$singleQuote":"'"
+        "$singleQuote":"'",
+        "sbVersion": "2015-08-01",
+        "defaultSASKeyName": "RootManageSharedAccessKey",
+        "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+        
     },
     "resources": [
     {
@@ -52,7 +57,7 @@
             },
             "displayName": "servicebus",
             "parameterValues": {
-                "connectionString": "[parameters('serviceBusConnectionString')]"
+                "connectionString": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
             }
         }
     },
