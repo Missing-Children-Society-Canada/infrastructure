@@ -8,14 +8,16 @@
         },
         "APP_INSIGHTS_KEY": {
             "type": "string"
+        },
+        "repoURL": {
+            "type": "string",
+            "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal"
+        },
+        "branch": {
+            "type": "string",
+            "defaultValue": "master"
         }
     },
-    "repoURL": {
-      "type": "string",
-      "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal",
-      "metadata": {
-      "description": "The URL for the GitHub repository that contains the project to deploy."
-      },
     "resources": [
         {
             "type": "Microsoft.Web/Sites",
@@ -35,8 +37,11 @@
                             "Name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "Value": "4.4.7"
                         }
-                    ]
-                }
+                    ],
+                },
+                "RepoUrl": "[parameters('repoURL')]",
+                "branch": "[parameters('branch')]",
+                "IsManualIntegration": true
             }
         }
     ]
