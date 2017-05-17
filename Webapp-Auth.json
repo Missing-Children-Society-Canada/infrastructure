@@ -26,15 +26,17 @@
         },
         "IG_VERIFY_TOKEN": {
             "type": "string"
+        },
+        "repoURL": {
+            "type": "string",
+            "defaultValue": "https://github.com/Missing-Children-Society-Canada/authorization.git"
+        },
+        "branch": {
+            "type": "string",
+            "defaultValue": "master"
         }
     },
     "variables": {},
-      "repoURL": {
-      "type": "string",
-      "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal",
-      "metadata": {
-        "description": "The URL for the GitHub repository that contains the project to deploy."
-      },
     "resources": [
         {
             "type": "Microsoft.Web/Sites",
@@ -78,7 +80,10 @@
                             "Name": "IG_VERIFY_TOKEN",
                             "Value": "[parameters('IG_VERIFY_TOKEN')]"
                         }
-                    ]
+                    ],
+                "RepoUrl": "[parameters('repoURL')]",
+                "branch": "[parameters('branch')]",
+                "IsManualIntegration": true
                 }
             }
         }
