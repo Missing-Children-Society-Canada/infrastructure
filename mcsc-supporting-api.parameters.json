@@ -3,12 +3,18 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "functionAppsName": {
-      "value": "PL2-mcsc-supporting-api"
+      "value": "PL5-mcsc-supporting-api"
     },
     "storageAccountType": {
       "value":"Standard_LRS"
     },
-    "repoURL": {
+    "cosmosDBAccountName": {
+      "value":"missingchildrendata3"
+    },
+     "serviceBusNamespaceName": {
+      "value":"MCSCChildFinder"
+    },
+   "repoURL": {
     "value":"https://github.com/Missing-Children-Society-Canada/supporting-apis"
     },
     "branch": {

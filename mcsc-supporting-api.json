@@ -21,6 +21,21 @@
 				"description": "Storage Account type"
 			}
 		},
+        "cosmosDBAccountName": {
+            "type": "string",
+			"defaultValue": "missingchildrendata3",
+            "metadata": {
+                "description": "mcsc-supporting-api"
+            }
+        },
+		"serviceBusNamespaceName": {
+			"type": "string",
+			"defaultValue": "MCSCChildFinder",
+			"metadata": {
+				"description": "The Azure Service Bus namespace connection string."
+			}
+		},
+		
 		"repoURL": {
 			"type": "string",
 			"defaultValue": "https://github.com/Missing-Children-Society-Canada/supporting-apis"
@@ -31,8 +46,10 @@
 		}
 	},
 	"variables": {
-		"XXXXhostingPlanName": "[concat(parameters('functionAppsName'), '-plan')]",
-		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]"
+		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]",
+        "sbVersion": "2015-08-01",
+        "defaultSASKeyName": "RootManageSharedAccessKey",
+        "SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
 	},
 	"resources": [{
 		"type": "Microsoft.Storage/storageAccounts",
@@ -58,15 +75,62 @@
 						"*"
 					]
 				},
-				"appSettings": [{
+				"appSettings": [
+				{
 					"name": "FUNCTIONS_EXTENSION_VERSION",
 					"value": "~1"
-				}, {
+				}, 
+				{
 					"name": "AzureWebJobsStorage",
 					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
-				}, {
+				}, 
+				{
 					"name": "AzureWebJobsDashboard",
 					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}, 
+				{
+					"name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}, 
+				{
+					"name": "WEBSITE_CONTENTSHARE",
+					"value": "mcsc-supporting-apib485"
+				}, 
+				{
+					"name": "WEBSITE_NODE_DEFAULT_VERSION",
+					"value": "6.5.0"
+				}, 
+				{
+					"name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+					"value": "0712e007-6091-42fd-8308-47d280621a1c"
+				}, 
+				{
+					"name": "AzureWebJobsServiceBus",
+					"value": "[listkeys(variables('SBauthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
+				}, 
+				{
+					"name": "DocumentDB",
+					"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
+				}, 
+				{
+					"name": "DocDB_Host",
+					"Value": "[listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').documentEndpoint]"
+				}, 
+				{
+					"name": "DocDB_AuthKey",
+					"value": "agHqTdTA7xaIlSEnaVU63O0sFCnrSZuZHYcBLLoUgeyPCYC5qYSSFca7eMGbqRFmPaAPeaakJmMxYSy0OvxHog=="
+				}, 
+				{
+					"name": "FUNCTION_APP_EDIT_MODE",
+					"value": "readwrite"
+				}, 
+				{
+					"name": "missingchildrendata_DOCUMENTDB",
+					"value": "AccountEndpoint=https://missingchildrendata.documents.azure.com:443/;AccountKey=agHqTdTA7xaIlSEnaVU63O0sFCnrSZuZHYcBLLoUgeyPCYC5qYSSFca7eMGbqRFmPaAPeaakJmMxYSy0OvxHog==;"
+				}, 
+				{
+					"name": "FB_VERIFY_TOKEN",
+					"value": "0c0293ff-91ef-4045-94f6-5dc9225c5073"
 				}]
 			}
 		},
