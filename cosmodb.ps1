@@ -26,7 +26,7 @@ echo '             DB account'
 echo '*****************************************************'
 
 # Create a MongoDB API Cosmos DB account
-az cosmosdb create --name $name --kind MongoDB --resource-group $resourceGroupName --max-interval 10 --max-staleness-prefix 200
+az cosmosdb create --name $name --kind GlobalDocumentDB --resource-group $resourceGroupName --max-interval 10 --max-staleness-prefix 200
 
 echo '*****************************************************'
 echo '             create DB'
