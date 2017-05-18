@@ -17,10 +17,11 @@
 			"defaultValue": "MCSCChildFinder",
 			"metadata": {
 				"description": "The Azure Service Bus namespace connection string."
-			},
+			}
+		},
 		"FUNCTIONS_EXTENSION_VERSION": {
 			"type": "string",
-			"defaultValue":"latest"
+			"defaultValue": "latest"
 		},
 		"TwitterConsumerKey": {
 			"type": "string"
@@ -36,7 +37,7 @@
 		},
 		"IG_TOKEN_VERIFY": {
 			"type": "string",
-			"defaultValue":"MCSC_verification"
+			"defaultValue": "MCSC_verification"
 		},
 		"repoURL": {
 			"type": "string",
@@ -51,9 +52,9 @@
 		"functionAppName": "[parameters('appName')]",
 		"hostingPlanName": "[concat(parameters('appName'), '-plan')]",
 		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id, deployment().name), 'storage')]",
-        "sbVersion": "2015-08-01",
-        "defaultSASKeyName": "RootManageSharedAccessKey",
-        "SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+		"sbVersion": "2015-08-01",
+		"defaultSASKeyName": "RootManageSharedAccessKey",
+		"SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
 	},
 	"resources": [
 		{
