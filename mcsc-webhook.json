@@ -1,0 +1,142 @@
+{
+	"$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+        "functionAppsName": {
+            "type": "string",
+            "metadata": {
+                "description": "mcsc-webhook"
+            }
+        },
+		"storageAccountType": {
+			"type": "string",
+			"defaultValue": "Standard_LRS",
+			"allowedValues": [
+				"Standard_LRS",
+				"Standard_GRS",
+				"Standard_ZRS",
+				"Premium_LRS"
+			],
+			"metadata": {
+				"description": "Storage Account type"
+			}
+		},
+		"serviceBusNamespaceName": {
+			"type": "string",
+			"defaultValue": "MCSCChildFinder",
+			"metadata": {
+				"description": "The Azure Service Bus namespace connection string."
+			}
+		},		
+		"facebookToken": {
+			"type": "string",
+			"metadata": {
+				"description": "The token used to connect to Facebook."
+			}
+		},
+		"instagramToken": {
+			"type": "string",
+			"metadata": {
+				"description": "The token used to connect to Instagram."
+			}
+		},
+		"repoURL": {
+			"type": "string",
+			"defaultValue": "https://github.com/Missing-Children-Society-Canada/webhooks"
+		},
+		"branch": {
+			"type": "string",
+			"defaultValue": "master"
+		}
+	},
+	"variables": {
+		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id, deployment().name), 'storage')]",
+		"sbVersion": "2015-08-01",
+		"defaultSASKeyName": "RootManageSharedAccessKey",
+		"SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+	},
+	"resources": [{
+		"type": "Microsoft.Storage/storageAccounts",
+		"name": "[variables('storageAccountName')]",
+		"apiVersion": "2015-06-15",
+		"location": "[resourceGroup().location]",
+		"properties": {
+			"accountType": "[parameters('storageAccountType')]"
+		}
+	}, 
+	{
+		"apiVersion": "2016-03-01",
+		"type": "Microsoft.Web/sites",
+		"name": "[parameters('functionAppsName')]",
+		"location": "[resourceGroup().location]",
+		"kind": "functionapp",
+		"properties": {
+			"name": "[parameters('functionAppsName')]",
+			"clientAffinityEnabled": false,
+			"siteConfig": {
+				"cors": {
+					"allowedOrigins": [
+						"*"
+					]
+				},
+				"appSettings": [
+				{
+					"name": "FUNCTIONS_EXTENSION_VERSION",
+					"value": "~1"
+				}, 
+				{
+					"name": "AzureWebJobsStorage",
+					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}, 
+				{
+					"name": "AzureWebJobsDashboard",
+					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}, 
+				{
+					"name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+				}, 
+				{
+					"name": "WEBSITE_CONTENTSHARE",
+					"value": "[toLower(parameters('functionAppsName'))]"
+				}, 
+				{
+					"name": "WEBSITE_NODE_DEFAULT_VERSION",
+					"value": "6.5.0"
+				}, 
+				{
+					"name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+					"value": ""
+				}, 
+				{
+					"name": "AzureWebJobsServiceBus",
+					"value": "[listkeys(variables('SBauthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
+				}, 
+				{
+					"name": "FB_VERIFY_TOKEN",
+					"value": "[parameters('facebookToken')]"
+				}, 
+				{
+					"name": "IG_VERIFY_TOKEN",
+					"value": "[parameters('instagramToken')]"
+				}]
+			}
+		},
+		"dependsOn": [
+			"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+		],
+		"resources": [{
+			"apiVersion": "2015-08-01",
+			"name": "web",
+			"type": "sourcecontrols",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/Sites', parameters('functionAppsName'))]"
+			],
+			"properties": {
+				"RepoUrl": "[parameters('repoURL')]",
+				"branch": "[parameters('branch')]",
+				"IsManualIntegration": true
+			}
+		}]
+	}]
+}
