@@ -141,7 +141,7 @@
 						},
 						{
 							"name": "IG_TOKEN_VERIFY",
-							"value": "[variables('IG_TOKEN_VERIFY')]"
+							"value": "[parameters('IG_TOKEN_VERIFY')]"
 						}
 					]
 				}
