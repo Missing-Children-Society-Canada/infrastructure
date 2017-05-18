@@ -2,9 +2,6 @@
 	"$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"CosmosDBName": {
-			"type": "string"
-		},
 		"appName": {
 			"type": "string"
 		},
@@ -12,9 +9,23 @@
 			"type": "string",
 			"defaultValue": "Standard_LRS"
 		},
+		"serviceBusNamespaceName": {
+			"type": "string",
+			"defaultValue": "MCSCChildFinder",
+			"metadata": {
+				"description": "The Azure Service Bus namespace connection string."
+			}
+		},
+        "cosmosDBAccountName": {
+            "type": "string",
+			"defaultValue": "missingchildrendata44",
+            "metadata": {
+                "description": "mcsc-supporting-api"
+            }
+		},
 		"FUNCTIONS_EXTENSION_VERSION": {
 			"type": "string",
-			"defaultValue":"latest"
+			"defaultValue": "latest"
 		},
 		"TwitterConsumerKey": {
 			"type": "string"
@@ -30,7 +41,7 @@
 		},
 		"IG_TOKEN_VERIFY": {
 			"type": "string",
-			"defaultValue":"MCSC_verification"
+			"defaultValue": "MCSC_verification"
 		},
 		"repoURL": {
 			"type": "string",
@@ -44,10 +55,10 @@
 	"variables": {
 		"functionAppName": "[parameters('appName')]",
 		"hostingPlanName": "[concat(parameters('appName'), '-plan')]",
-		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]",
-        "sbVersion": "2015-08-01",
-        "defaultSASKeyName": "RootManageSharedAccessKey",
-        "SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id, deployment().name), 'storage')]",
+		"sbVersion": "2015-08-01",
+		"defaultSASKeyName": "RootManageSharedAccessKey",
+		"SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
 	},
 	"resources": [
 		{
