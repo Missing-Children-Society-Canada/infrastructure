@@ -8,9 +8,6 @@
     "storageAccountType": {
       "value":"Standard_LRS"
     },
-    "cosmosDBAccountName": {
-      "value":"missingchildrendata44"
-    },
      "serviceBusNamespaceName": {
       "value":"MCSCChildFinder"
     },
