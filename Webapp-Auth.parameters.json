@@ -3,13 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_MCSC_Authorization_name": {
-            "value": "mcsc-authorization-dev"
-        },
-        "DOC_DB": {
-            "value": ""
-        },
-        "AUTH_KEY": {
-            "value": ""
+            "value": "mcsc-authorization-pr"
         },
         "TWITTER_CONSUMER_KEY": {
             "value": ""
@@ -41,8 +35,11 @@
         "PORTAL_APP_INSIGHTS_KEY": {
            "value": ""
         },
+        "WEBSITE_NODE_DEFAULT_VERSION":{
+            "value": ""
+         },
         "repoURL": {
-            "value": "https://github.com/Missing-Children-Society-Canada/authorization.git"
+            "value": "https://github.com/Missing-Children-Society-Canada/authorization"
         },
         "branch": {
             "value": "master"
