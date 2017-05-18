@@ -2,12 +2,42 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "CosmosDBName": {
+      "value": ""
+    },
     "appName": {
       "value": "mscs-cf-functions"
     },
     "storageAccountType": {
       "value": "Standard_LRS"
     },
+		"AzureWebJobsServiceBus": {
+			"value": ""
+		},
+		"DocDb_AuthKey": {
+			"value": ""
+		},
+		"TwitterConsumerKey": {
+			"value": ""
+		},
+		"TwitterConsumerSecret": {
+			"value": ""
+		},
+		"TwitterAccessTokenKey": {
+			"value": ""
+		},
+		"TwitterAccessTokenSecret": {
+			"value": ""
+		},
+		"WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": {
+			"value": ""
+		},
+		"WEBSITE_CONTENTSHARE": {
+			"value": ""
+		},
+		"IG_TOKEN_VERIFY": {
+			"value": "MCSC_verification"
+		},
     "repoURL": {
       "value": "https://github.com/Missing-Children-Society-Canada/messaging"
     },

@@ -2,18 +2,53 @@
 	"$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-        "appName": {
-            "type": "string",
-            "metadata": {
-                "description": "mscs-cf-functions"
-            }
-        },
+		"CosmosDBName": {
+			"type": "string"
+		},
+		"appName": {
+			"type": "string"
+		},
 		"storageAccountType": {
 			"type": "string",
-			"defaultValue": "Standard_LRS",
-			"metadata": {
-				"description": "Storage Account type"
-			}
+			"defaultValue": "Standard_LRS"
+		},
+		"AzureWebJobsStorage": {
+			"type": "string"
+		},
+		"AzureWebJobsDashboard": {
+			"type": "string"
+		},
+		"FUNCTIONS_EXTENSION_VERSION": {
+			"type": "string",
+			"defaultValue":"latest"
+		},
+		"AzureWebJobsServiceBus": {
+			"type": "string"
+		},
+		"DocDb_AuthKey": {
+			"type": "string"
+		},
+		"TwitterConsumerKey": {
+			"type": "string"
+		},
+		"TwitterConsumerSecret": {
+			"type": "string"
+		},
+		"TwitterAccessTokenKey": {
+			"type": "string"
+		},
+		"TwitterAccessTokenSecret": {
+			"type": "string"
+		},
+		"WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": {
+			"type": "string"
+		},
+		"WEBSITE_CONTENTSHARE": {
+			"type": "string"
+		},
+		"IG_TOKEN_VERIFY": {
+			"type": "string",
+			"defaultValue":"MCSC_verification"
 		},
 		"repoURL": {
 			"type": "string",
@@ -29,58 +64,118 @@
 		"hostingPlanName": "[concat(parameters('appName'), '-plan')]",
 		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]"
 	},
-	"resources": [{
-		"type": "Microsoft.Storage/storageAccounts",
-		"name": "[variables('storageAccountName')]",
-		"apiVersion": "2015-06-15",
-		"location": "[resourceGroup().location]",
-		"properties": {
-			"accountType": "[parameters('storageAccountType')]"
-		}
-	},
-	{
-		"apiVersion": "2015-08-01",
-		"type": "Microsoft.Web/sites",
-		"name": "[parameters('appName')]",
-		"location": "[resourceGroup().location]",
-		"kind": "functionapp",
-		"properties": {
-			"name": "[parameters('appName')]",
-			"hostingEnvironment": "",
-			"clientAffinityEnabled": false,
-			"siteConfig": {
-				"cors": {
-					"allowedOrigins": [
-						"*"
-					]
-				},
-				"appSettings": [{
-					"name": "FUNCTIONS_EXTENSION_VERSION",
-					"value": "~1"
-				}, {
-					"name": "AzureWebJobsStorage",
-					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
-				}, {
-					"name": "AzureWebJobsDashboard",
-					"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
-				}]
+	"resources": [
+		{
+			"type": "Microsoft.Storage/storageAccounts",
+			"name": "[variables('storageAccountName')]",
+			"apiVersion": "2015-06-15",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"accountType": "[parameters('storageAccountType')]"
 			}
 		},
-		"dependsOn": [
-			"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-		],
-		"resources": [{
+		{
 			"apiVersion": "2015-08-01",
-			"name": "web",
-			"type": "sourcecontrols",
-			"dependsOn": [
-				"[resourceId('Microsoft.Web/Sites', variables('functionAppName'))]"
-			],
+			"type": "Microsoft.Web/sites",
+			"name": "[parameters('appName')]",
+			"location": "[resourceGroup().location]",
+			"kind": "functionapp",
 			"properties": {
-				"RepoUrl": "[parameters('repoURL')]",
-				"branch": "[parameters('branch')]",
-				"IsManualIntegration": true
-			}
-		}]
-	}]
+				"name": "[parameters('appName')]",
+				"hostingEnvironment": "",
+				"clientAffinityEnabled": false,
+				"siteConfig": {
+					"cors": {
+						"allowedOrigins": [
+							"*"
+						]
+					},
+					"appSettings": [
+						{
+							"name": "AzureWebJobsStorage",
+							"value": "[variables('AzureWebJobsStorage')]"
+						},
+						{
+							"name": "AzureWebJobsDashboard",
+							"value": "[variables('AzureWebJobsDashboard')]"
+						},
+						{
+							"name": "FUNCTIONS_EXTENSION_VERSION",
+							"value": "[variables('FUNCTIONS_EXTENSION_VERSION')]"
+						},
+						{
+							"name": "AzureWebJobsServiceBus",
+							"value": "[variables('AzureWebJobsServiceBus')]"
+						},
+						{
+							"name": "DocumentDB",
+							"value": "[concat(subscription().subscriptionId/resourceGroups/resourceGroup().name/providers/Microsoft.DocumentDB/databaseAccounts/),parameters('cosmosDBAccountName')"
+						},
+						{
+							"name": "DocDb_Host",
+							"value": "[concat('https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443')]"
+						},
+						{
+							"name": "DocDb_AuthKey",
+							"value": "[variables('DocDb_AuthKey')]"
+						},
+						{
+							"name": "TwitterConsumerKey",
+							"value": "[variables('TwitterConsumerKey')]"
+						},
+						{
+							"name": "TwitterConsumerSecret",
+							"value": "[variables('TwitterConsumerSecret')]"
+						},
+						{
+							"name": "TwitterAccessTokenKey",
+							"value": "[variables('TwitterAccessTokenKey')]"
+						},
+						{
+							"name": "TwitterAccessTokenSecret",
+							"value": "[variables('TwitterAccessTokenSecret')]"
+						},
+						{
+							"name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+							"value": "[variables('WEBSITE_CONTENTAZUREFILECONNECTIONSTRING')]"
+						},
+						{
+							"name": "WEBSITE_CONTENTSHARE",
+							"value": "[variables('WEBSITE_CONTENTSHARE')]"
+						},
+						{
+							"name": "IG_TOKEN_VERIFY",
+							"value": "[variables('IG_TOKEN_VERIFY')]"
+						},
+						{
+							"name": "AzureWebJobsStorage",
+							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+						},
+						{
+							"name": "AzureWebJobsDashboard",
+							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
+						}
+					]
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+			],
+			"resources": [
+				{
+					"apiVersion": "2015-08-01",
+					"name": "web",
+					"type": "sourcecontrols",
+					"dependsOn": [
+						"[resourceId('Microsoft.Web/Sites', variables('functionAppName'))]"
+					],
+					"properties": {
+						"RepoUrl": "[parameters('repoURL')]",
+						"branch": "[parameters('branch')]",
+						"IsManualIntegration": true
+					}
+				}
+			]
+		}
+	]
 }
