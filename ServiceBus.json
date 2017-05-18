@@ -137,7 +137,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "platform = 'facebook'"
+                                "sqlExpression": "platform='facebook'"
                             }
                         }
                     }]
@@ -159,7 +159,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "hasfacebook=1"
+                                "sqlExpression": "hasfacebook=true"
                             }
                         }
                     }]
@@ -181,7 +181,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "platform = 'instagram'"
+                                "sqlExpression": "platform='instagram'"
                             }
                         }
                     }]
@@ -203,7 +203,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "hasinstagram=1"
+                                "sqlExpression": "hasinstagram=true"
                             }
                         }
                     }]
@@ -225,7 +225,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "platform = 'twitter'"
+                                "sqlExpression": "platform='twitter'"
                             }
                         }
                     }]
@@ -247,7 +247,7 @@
                         ],
                         "properties": {
                             "filter": {
-                                "sqlExpression": "hastwitter=1"
+                                "sqlExpression": "hastwitter=true"
                             }
                         }
                     }]
