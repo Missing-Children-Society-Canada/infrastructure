@@ -6,13 +6,12 @@
             "defaultValue": "",
             "type": "string"
         },
-        "DOC_DB": {
-            "defaultValue": "",
-            "type": "string"
-        },
-        "AUTH_KEY": {
-            "defaultValue": "",
-            "type": "string"
+        "cosmosDBAccountName": {
+            "type": "string",
+			"defaultValue": "missingchildrendata2",
+            "metadata": {
+                "description": "mcsc-supporting-api"
+            }
         },
         "TWITTER_CONSUMER_KEY": {
             "defaultValue": "",
@@ -68,6 +67,7 @@
         }
     },
     "variables": {},
+
     "resources": [
         {
             "type": "Microsoft.Web/Sites",
@@ -81,11 +81,11 @@
                     "appSettings": [
                         {
                             "Name": "DOC_DB",
-                            "Value": "[parameters('DOC_DB')]"
+                            "Value": "[concat('https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443')]"
                         },
                         {
                             "Name": "AUTH_KEY",
-                            "Value": "[parameters('AUTH_KEY')]"
+                            "Value": "[concat(listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey)]"
                         },
                         {
                             "Name": "TWITTER_CONSUMER_KEY",
@@ -113,32 +113,23 @@
                         },
                         {
                             "Name": "FACEBOOK_CONSUMER_KEY",
-                            "Value": "[parameters('IG_VERIFY_TOKEN')]"
+                            "Value": "[parameters('FACEBOOK_CONSUMER_KEY')]"
                         },
-
                         {
                             "Name": "FACEBOOK_CONSUMER_SECRET",
                             "Value": "[parameters('FACEBOOK_CONSUMER_SECRET')]"
                         },
-
                         {
                             "Name": "INSTAGRAM_CONSUMER_KEY",
                             "Value": "[parameters('INSTAGRAM_CONSUMER_KEY')]"
                         },
-
                         {
                             "Name": "INSTAGRAM_CONSUMER_SECRET",
                             "Value": "[parameters('INSTAGRAM_CONSUMER_SECRET')]"
                         },
-
                         {
                             "Name": "PORTAL_APP_INSIGHTS_KEY",
                             "Value": "[parameters('PORTAL_APP_INSIGHTS_KEY')]"
-                        },
-
-                        {
-                            "Name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "Value": "[parameters('IG_VERIFY_TOKEN')]"
                         }
                     ],
                 "RepoUrl": "[parameters('repoURL')]",

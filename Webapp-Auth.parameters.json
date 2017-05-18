@@ -3,13 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_MCSC_Authorization_name": {
-            "value": "mcsc-authorization-dev"
-        },
-        "DOC_DB": {
-            "value": ""
-        },
-        "AUTH_KEY": {
-            "value": ""
+            "value": "mcsc-authorization-pr"
         },
         "TWITTER_CONSUMER_KEY": {
             "value": ""
