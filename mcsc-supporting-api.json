@@ -51,10 +51,10 @@
 		}
 	},
 	"variables": {
-		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]",
-        "sbVersion": "2015-08-01",
-        "defaultSASKeyName": "RootManageSharedAccessKey",
-        "SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id, deployment().name), 'storage')]",
+		"sbVersion": "2015-08-01",
+		"defaultSASKeyName": "RootManageSharedAccessKey",
+		"SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
 	},
 	"resources": [{
 		"type": "Microsoft.Storage/storageAccounts",
@@ -99,7 +99,7 @@
 				}, 
 				{
 					"name": "WEBSITE_CONTENTSHARE",
-					"value": "mcsc-supporting-apib485"
+					"value": "[toLower(parameters('functionAppsName'))]"
 				}, 
 				{
 					"name": "WEBSITE_NODE_DEFAULT_VERSION",

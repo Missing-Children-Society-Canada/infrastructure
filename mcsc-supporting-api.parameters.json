@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "functionAppsName": {
-      "value": "PL1-mcsc-supporting-api"
+      "value": "PL12-mcsc-supporting-api"
     },
     "storageAccountType": {
       "value":"Standard_LRS"
