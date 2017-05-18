@@ -50,7 +50,7 @@
 		}
 	},
 	"variables": {
-		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id, deployment().name), 'storage')]",
+		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id), 'storage')]",
 		"sbVersion": "2015-08-01",
 		"defaultSASKeyName": "RootManageSharedAccessKey",
 		"SBauthRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
