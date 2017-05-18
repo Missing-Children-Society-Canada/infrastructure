@@ -21,7 +21,8 @@
 			"defaultValue": "missingchildrendata44",
             "metadata": {
                 "description": "mcsc-supporting-api"
-            },
+            }
+		},
 		"FUNCTIONS_EXTENSION_VERSION": {
 			"type": "string",
 			"defaultValue": "latest"
