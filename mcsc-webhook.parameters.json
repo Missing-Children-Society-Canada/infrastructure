@@ -1,0 +1,30 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "functionAppsName": {
+      "value": "PL-mcsc-webhook"
+    },
+    "storageAccountType": {
+      "value":"Standard_LRS"
+    },
+    "cosmosDBAccountName": {
+      "value":"missingchildrendata44"
+    },
+     "serviceBusNamespaceName": {
+      "value":"MCSCChildFinder"
+    },
+   "facebookToken": {
+    "value":"123456789"
+    },
+   "instagramToken": {
+    "value":"123456789"
+    },
+   "repoURL": {
+    "value":"https://github.com/Missing-Children-Society-Canada/webhooks"
+    },
+    "branch": {
+      "value":"master"
+    }
+  }
+}
