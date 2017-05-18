@@ -107,15 +107,11 @@
 				}, 
 				{
 					"name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-					"value": "071   GUID    0621a1c"
+					"value": ""
 				}, 
 				{
 					"name": "AzureWebJobsServiceBus",
 					"value": "[listkeys(variables('SBauthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
-				}, 
-				{
-					"name": "XXXXXXXDocumentDBXXXXXXX",
-					"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
 				}, 
 				{
 					"name": "DocDB_Host",
@@ -125,14 +121,6 @@
 					"name": "DocDB_AuthKey",
 					"value": "[concat(listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey)]"
 
-				}, 
-				{
-					"name": "XXXXXFUNCTION_APP_EDIT_MODEXXXXXX",
-					"value": "readwrite"
-				}, 
-				{
-					"name": "XXXXmissingchildrendata_DOCUMENTDBXXXXXXX",
-					"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
 				}, 
 				{
 					"name": "FB_VERIFY_TOKEN",

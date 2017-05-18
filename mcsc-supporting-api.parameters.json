@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "functionAppsName": {
-      "value": "PL12-mcsc-supporting-api"
+      "value": "mcsc-supporting-api"
     },
     "storageAccountType": {
       "value":"Standard_LRS"
     },
     "cosmosDBAccountName": {
-      "value":"missingchildrendata44"
+      "value":"missingchildrendata"
     },
      "serviceBusNamespaceName": {
       "value":"MCSCChildFinder"
