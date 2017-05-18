@@ -12,21 +12,9 @@
 			"type": "string",
 			"defaultValue": "Standard_LRS"
 		},
-		"AzureWebJobsStorage": {
-			"type": "string"
-		},
-		"AzureWebJobsDashboard": {
-			"type": "string"
-		},
 		"FUNCTIONS_EXTENSION_VERSION": {
 			"type": "string",
 			"defaultValue":"latest"
-		},
-		"AzureWebJobsServiceBus": {
-			"type": "string"
-		},
-		"DocDb_AuthKey": {
-			"type": "string"
 		},
 		"TwitterConsumerKey": {
 			"type": "string"
@@ -38,12 +26,6 @@
 			"type": "string"
 		},
 		"TwitterAccessTokenSecret": {
-			"type": "string"
-		},
-		"WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": {
-			"type": "string"
-		},
-		"WEBSITE_CONTENTSHARE": {
 			"type": "string"
 		},
 		"IG_TOKEN_VERIFY": {
@@ -101,7 +83,7 @@
 						},
 						{
 							"name": "FUNCTIONS_EXTENSION_VERSION",
-							"value": "[variables('FUNCTIONS_EXTENSION_VERSION')]"
+							"value": "[parameters('FUNCTIONS_EXTENSION_VERSION')]"
 						},
 						{
 							"name": "AzureWebJobsServiceBus",
@@ -121,27 +103,27 @@
 						},
 						{
 							"name": "TwitterConsumerKey",
-							"value": "[variables('TwitterConsumerKey')]"
+							"value": "[parameters('TwitterConsumerKey')]"
 						},
 						{
 							"name": "TwitterConsumerSecret",
-							"value": "[variables('TwitterConsumerSecret')]"
+							"value": "[parameters('TwitterConsumerSecret')]"
 						},
 						{
 							"name": "TwitterAccessTokenKey",
-							"value": "[variables('TwitterAccessTokenKey')]"
+							"value": "[parameters('TwitterAccessTokenKey')]"
 						},
 						{
 							"name": "TwitterAccessTokenSecret",
-							"value": "[variables('TwitterAccessTokenSecret')]"
+							"value": "[parameters('TwitterAccessTokenSecret')]"
 						},
 						{
 							"name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-							"value": "[variables('WEBSITE_CONTENTAZUREFILECONNECTIONSTRING')]"
+							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
 						},
 						{
 							"name": "WEBSITE_CONTENTSHARE",
-							"value": "[variables('WEBSITE_CONTENTSHARE')]"
+							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
 						},
 						{
 							"name": "IG_TOKEN_VERIFY",

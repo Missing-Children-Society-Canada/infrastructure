@@ -8,15 +8,12 @@
     "appName": {
       "value": "mscs-cf-functions"
     },
+    "FUNCTIONS_EXTENSION_VERSION": {
+      "value": "latest"
+    },
     "storageAccountType": {
       "value": "Standard_LRS"
     },
-		"AzureWebJobsServiceBus": {
-			"value": ""
-		},
-		"DocDb_AuthKey": {
-			"value": ""
-		},
 		"TwitterConsumerKey": {
 			"value": ""
 		},
@@ -27,12 +24,6 @@
 			"value": ""
 		},
 		"TwitterAccessTokenSecret": {
-			"value": ""
-		},
-		"WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": {
-			"value": ""
-		},
-		"WEBSITE_CONTENTSHARE": {
 			"value": ""
 		},
 		"IG_TOKEN_VERIFY": {
