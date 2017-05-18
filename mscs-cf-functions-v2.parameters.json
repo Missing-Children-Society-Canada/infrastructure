@@ -1,0 +1,42 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "functionAppsName": {
+      "value": "mscs-cf-functions"
+    },
+    "storageAccountType": {
+      "value":"Standard_LRS"
+    },
+    "cosmosDBAccountName": {
+      "value":"missingchildrendata"
+    },
+     "serviceBusNamespaceName": {
+      "value":"MCSCChildFinder"
+    },
+   "facebookToken": {
+    "value":"123456789"
+    },
+   "TwitterConsumerKey": {
+    "value":"123456789"
+    },
+   "TwitterConsumerSecret": {
+    "value":"123456789"
+    },
+   "TwitterAccessTokenKey": {
+    "value":"123456789"
+    },
+   "TwitterAccessTokenSecret": {
+    "value":"123456789"
+    },
+   "instagramToken": {
+    "value":"123456789"
+    },
+   "repoURL": {
+    "value":"https://github.com/Missing-Children-Society-Canada/messaging"
+    },
+    "branch": {
+      "value":"master"
+    }
+  }
+}

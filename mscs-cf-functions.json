@@ -3,7 +3,8 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"appName": {
-			"type": "string"
+			"type": "string",
+			"defaultValue": "PL3-mscs-cf-functions"
 		},
 		"storageAccountType": {
 			"type": "string",
@@ -28,20 +29,24 @@
 			"defaultValue": "latest"
 		},
 		"TwitterConsumerKey": {
-			"type": "string"
+			"type": "string",
+			"defaultValue": "12345"
 		},
 		"TwitterConsumerSecret": {
-			"type": "string"
+			"type": "string",
+			"defaultValue": "12345"
 		},
 		"TwitterAccessTokenKey": {
-			"type": "string"
+			"type": "string",
+			"defaultValue": "12345"
 		},
 		"TwitterAccessTokenSecret": {
-			"type": "string"
+			"type": "string",
+			"defaultValue": "12345"
 		},
 		"IG_TOKEN_VERIFY": {
 			"type": "string",
-			"defaultValue": "MCSC_verification"
+			"defaultValue": "12345"
 		},
 		"repoURL": {
 			"type": "string",
@@ -54,7 +59,6 @@
 	},
 	"variables": {
 		"functionAppName": "[parameters('appName')]",
-		"hostingPlanName": "[concat(parameters('appName'), '-plan')]",
 		"storageAccountName": "[concat('func', uniqueString(resourceGroup().id, deployment().name), 'storage')]",
 		"sbVersion": "2015-08-01",
 		"defaultSASKeyName": "RootManageSharedAccessKey",
@@ -78,7 +82,6 @@
 			"kind": "functionapp",
 			"properties": {
 				"name": "[parameters('appName')]",
-				"hostingEnvironment": "",
 				"clientAffinityEnabled": false,
 				"siteConfig": {
 					"cors": {
@@ -102,10 +105,6 @@
 						{
 							"name": "AzureWebJobsServiceBus",
 							"value": "[listkeys(variables('SBauthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
-						},
-						{
-							"name": "DocumentDB",
-							"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
 						},
 						{
 							"name": "DocDb_Host",

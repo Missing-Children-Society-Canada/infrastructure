@@ -2,32 +2,32 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "cosmosDBAccountName": {
-      "value": ""
-    },
- 		"serviceBusNamespaceName": {
-      "value": ""
-    },
     "appName": {
-      "value": "mscs-cf-functions"
-    },
-    "FUNCTIONS_EXTENSION_VERSION": {
-      "value": "latest"
+      "value": "PL3-mscs-cf-functions"
     },
     "storageAccountType": {
       "value": "Standard_LRS"
     },
+ 		"serviceBusNamespaceName": {
+      "value": "MCSCChildFinder"
+    },
+    "cosmosDBAccountName": {
+      "value": "missingchildrendata44"
+    },
+    "FUNCTIONS_EXTENSION_VERSION": {
+      "value": "latest"
+    },
 		"TwitterConsumerKey": {
-			"value": ""
+			"value": "12345"
 		},
 		"TwitterConsumerSecret": {
-			"value": ""
+			"value": "12345"
 		},
 		"TwitterAccessTokenKey": {
-			"value": ""
+			"value": "12345"
 		},
 		"TwitterAccessTokenSecret": {
-			"value": ""
+			"value": "12345"
 		},
 		"IG_TOKEN_VERIFY": {
 			"value": "MCSC_verification"
