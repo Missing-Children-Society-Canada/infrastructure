@@ -11,7 +11,7 @@
         },
         "repoURL": {
             "type": "string",
-            "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal.git"
+            "defaultValue": "https://github.com/Missing-Children-Society-Canada/portal"
         },
         "branch": {
             "type": "string",

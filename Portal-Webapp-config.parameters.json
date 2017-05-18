@@ -7,6 +7,12 @@
         },
         "APP_INSIGHTS_KEY": {
             "value": ""
+        },
+        "repoURL": {
+            "value": "https://github.com/Missing-Children-Society-Canada/portal"
+        },
+        "branch": {
+            "value": "master"
         }
     }
 }
