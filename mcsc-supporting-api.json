@@ -102,7 +102,7 @@
 				}, 
 				{
 					"name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-					"value": "0712e007-6091-42fd-8308-47d280621a1c"
+					"value": "071   GUID    0621a1c"
 				}, 
 				{
 					"name": "AzureWebJobsServiceBus",
@@ -118,7 +118,7 @@
 				}, 
 				{
 					"name": "DocDB_AuthKey",
-					"value": "agHqTdTA7xaIlSEnaVU63O0sFCnrSZuZHYcBLLoUgeyPCYC5qYSSFca7eMGbqRFmPaAPeaakJmMxYSy0OvxHog=="
+					"value": "agHxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxFmPaAPeaakJmMxYSy0OvxHog=="
 				}, 
 				{
 					"name": "FUNCTION_APP_EDIT_MODE",
@@ -126,11 +126,11 @@
 				}, 
 				{
 					"name": "missingchildrendata_DOCUMENTDB",
-					"value": "AccountEndpoint=https://missingchildrendata.documents.azure.com:443/;AccountKey=agHqTdTA7xaIlSEnaVU63O0sFCnrSZuZHYcBLLoUgeyPCYC5qYSSFca7eMGbqRFmPaAPeaakJmMxYSy0OvxHog==;"
+					"value": "AccountEndpoint=https://missingchildrendata.documents.azure.com:443/;AccountKey=agHqTdTssssAP0OvxHog==;"
 				}, 
 				{
 					"name": "FB_VERIFY_TOKEN",
-					"value": "0c0293ff-91ef-4045-94f6-5dc9225c5073"
+					"value": "0c0293f  GUID  c5073"
 				}]
 			}
 		},
