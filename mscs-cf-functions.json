@@ -2,9 +2,6 @@
 	"$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"CosmosDBName": {
-			"type": "string"
-		},
 		"appName": {
 			"type": "string"
 		},
@@ -19,6 +16,12 @@
 				"description": "The Azure Service Bus namespace connection string."
 			}
 		},
+        "cosmosDBAccountName": {
+            "type": "string",
+			"defaultValue": "missingchildrendata44",
+            "metadata": {
+                "description": "mcsc-supporting-api"
+            },
 		"FUNCTIONS_EXTENSION_VERSION": {
 			"type": "string",
 			"defaultValue": "latest"
