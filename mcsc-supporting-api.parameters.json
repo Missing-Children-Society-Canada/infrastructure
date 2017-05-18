@@ -3,16 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "functionAppsName": {
-      "value": "PL5-mcsc-supporting-api"
+      "value": "PL1-mcsc-supporting-api"
     },
     "storageAccountType": {
       "value":"Standard_LRS"
     },
     "cosmosDBAccountName": {
-      "value":"missingchildrendata3"
+      "value":"missingchildrendata44"
     },
      "serviceBusNamespaceName": {
       "value":"MCSCChildFinder"
+    },
+   "facebookToken": {
+    "value":"123456789"
     },
    "repoURL": {
     "value":"https://github.com/Missing-Children-Society-Canada/supporting-apis"

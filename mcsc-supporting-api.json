@@ -23,7 +23,7 @@
 		},
         "cosmosDBAccountName": {
             "type": "string",
-			"defaultValue": "missingchildrendata3",
+			"defaultValue": "missingchildrendata44",
             "metadata": {
                 "description": "mcsc-supporting-api"
             }
@@ -34,8 +34,13 @@
 			"metadata": {
 				"description": "The Azure Service Bus namespace connection string."
 			}
+		},		
+		"facebookToken": {
+			"type": "string",
+			"metadata": {
+				"description": "The token used to connect to Facebook."
+			}
 		},
-		
 		"repoURL": {
 			"type": "string",
 			"defaultValue": "https://github.com/Missing-Children-Society-Canada/supporting-apis"
@@ -109,28 +114,29 @@
 					"value": "[listkeys(variables('SBauthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
 				}, 
 				{
-					"name": "DocumentDB",
+					"name": "XXXXXXXDocumentDBXXXXXXX",
 					"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
 				}, 
 				{
 					"name": "DocDB_Host",
-					"Value": "[listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').documentEndpoint]"
+					"value": "[concat('https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443')]"
 				}, 
 				{
 					"name": "DocDB_AuthKey",
-					"value": "agHxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxFmPaAPeaakJmMxYSy0OvxHog=="
+					"value": "[concat(listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey)]"
+
 				}, 
 				{
-					"name": "FUNCTION_APP_EDIT_MODE",
+					"name": "XXXXXFUNCTION_APP_EDIT_MODEXXXXXX",
 					"value": "readwrite"
 				}, 
 				{
-					"name": "missingchildrendata_DOCUMENTDB",
-					"value": "AccountEndpoint=https://missingchildrendata.documents.azure.com:443/;AccountKey=agHqTdTssssAP0OvxHog==;"
+					"name": "XXXXmissingchildrendata_DOCUMENTDBXXXXXXX",
+					"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
 				}, 
 				{
 					"name": "FB_VERIFY_TOKEN",
-					"value": "0c0293f  GUID  c5073"
+					"value": "[parameters('facebookToken')]"
 				}]
 			}
 		},
