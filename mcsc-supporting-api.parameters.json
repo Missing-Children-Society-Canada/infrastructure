@@ -1,0 +1,24 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "functionAppsName": {
+      "value": "PL5-mcsc-supporting-api"
+    },
+    "storageAccountType": {
+      "value":"Standard_LRS"
+    },
+    "cosmosDBAccountName": {
+      "value":"missingchildrendata3"
+    },
+     "serviceBusNamespaceName": {
+      "value":"MCSCChildFinder"
+    },
+   "repoURL": {
+    "value":"https://github.com/Missing-Children-Society-Canada/supporting-apis"
+    },
+    "branch": {
+      "value":"master"
+    }
+  }
+}
