@@ -59,7 +59,7 @@
         },
         "repoURL": {
             "type": "string",
-            "defaultValue": "https://github.com/Missing-Children-Society-Canada/authorization.git"
+            "defaultValue": "https://github.com/Missing-Children-Society-Canada/authorization"
         },
         "branch": {
             "type": "string",
