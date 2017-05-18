@@ -93,11 +93,11 @@
 					"appSettings": [
 						{
 							"name": "AzureWebJobsStorage",
-							"value": "[variables('AzureWebJobsStorage')]"
+							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
 						},
 						{
 							"name": "AzureWebJobsDashboard",
-							"value": "[variables('AzureWebJobsDashboard')]"
+							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
 						},
 						{
 							"name": "FUNCTIONS_EXTENSION_VERSION",
@@ -105,11 +105,11 @@
 						},
 						{
 							"name": "AzureWebJobsServiceBus",
-							"value": "[variables('AzureWebJobsServiceBus')]"
+							"value": "[listkeys(variables('SBauthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
 						},
 						{
 							"name": "DocumentDB",
-							"value": "[concat(subscription().subscriptionId/resourceGroups/resourceGroup().name/providers/Microsoft.DocumentDB/databaseAccounts/),parameters('cosmosDBAccountName')"
+							"value": "[concat('AccountEndpoint=https://', parameters('cosmosDBAccountName'), '.documents.azure.com:443/', ';AccountKey=', listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey,';')]"
 						},
 						{
 							"name": "DocDb_Host",
@@ -117,7 +117,7 @@
 						},
 						{
 							"name": "DocDb_AuthKey",
-							"value": "[variables('DocDb_AuthKey')]"
+							"value": "[concat(listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('cosmosDBAccountName')), '2015-04-08').primaryMasterKey)]"
 						},
 						{
 							"name": "TwitterConsumerKey",
@@ -146,14 +146,6 @@
 						{
 							"name": "IG_TOKEN_VERIFY",
 							"value": "[variables('IG_TOKEN_VERIFY')]"
-						},
-						{
-							"name": "AzureWebJobsStorage",
-							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
-						},
-						{
-							"name": "AzureWebJobsDashboard",
-							"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]"
 						}
 					]
 				}
