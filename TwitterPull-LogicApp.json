@@ -4,42 +4,36 @@
     "parameters": {
         "logicAppName": {
             "type": "string",
-            "defaultValue": "twitter-pull",
             "metadata": {
                 "description": "The name for the logic app."
             }
         },
         "serviceBusNamespaceName": {
             "type": "string",
-            "defaultValue": "MCSCChildFinder",
             "metadata": {
                 "description": "The Azure Service Bus namespace connection string."
             }
         },
         "serviceBusConnectionName": {
             "type": "string",
-            "defaultValue": "serviceBusConnection",
             "metadata": {
                 "description": "The name for the Service Bus connection."
             }
         },
         "serviceBusQueueName": {
             "type": "string",
-            "defaultValue": "tofilter",
             "metadata": {
-            "description": "The name of the queue to add a message to."
+                "description": "The name of the queue to add a message to."
             }
         },
         "twitterConnectionName": {
             "type": "string",
-            "defaultValue": "twitterConnection",
             "metadata": {
             "description": "The name of the queue to add a message to."
             }
         },
         "twitterHashtag": {
             "type": "string",
-            "defaultValue": "HFMTest",
             "metadata": {
             "description": "The Hashtag we are tracking in Twitter"
             }

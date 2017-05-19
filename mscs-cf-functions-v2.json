@@ -23,14 +23,12 @@
 		},
         "cosmosDBAccountName": {
             "type": "string",
-			"defaultValue": "missingchildrendata",
             "metadata": {
                 "description": "mcsc"
             }
         },
 		"serviceBusNamespaceName": {
 			"type": "string",
-			"defaultValue": "MCSCChildFinder",
 			"metadata": {
 				"description": "The Azure Service Bus namespace connection string."
 			}

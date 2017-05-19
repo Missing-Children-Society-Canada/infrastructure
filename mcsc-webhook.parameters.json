@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "functionAppsName": {
-      "value": "PL-mcsc-webhook"
+      "value": "PL88-mcsc-webhook"
     },
     "storageAccountType": {
       "value":"Standard_LRS"
     },
      "serviceBusNamespaceName": {
-      "value":"MCSCChildFinder"
+      "value":"MCSCChildFinderPL"
     },
    "facebookToken": {
     "value":"123456789"

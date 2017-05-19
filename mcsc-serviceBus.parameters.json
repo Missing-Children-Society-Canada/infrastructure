@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceBusNamespaceName": {
-            "value": "MCSCChildFinder"
+            "value": "MCSCChildFinderPL"
         },
         "tofilter_queue_name": {
             "value": "tofilter"

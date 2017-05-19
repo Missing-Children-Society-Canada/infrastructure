@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "functionAppsName": {
-      "value": "mscs-cf-functions"
+      "value": "PL99-mscs-cf-functions"
     },
     "storageAccountType": {
       "value":"Standard_LRS"
     },
     "cosmosDBAccountName": {
-      "value":"missingchildrendata"
+      "value":"missingchildrendata55"
     },
      "serviceBusNamespaceName": {
-      "value":"MCSCChildFinder"
+      "value":"MCSCChildFinderPL"
     },
    "facebookToken": {
     "value":"123456789"

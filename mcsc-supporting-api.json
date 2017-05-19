@@ -10,7 +10,6 @@
         },
 		"storageAccountType": {
 			"type": "string",
-			"defaultValue": "Standard_LRS",
 			"allowedValues": [
 				"Standard_LRS",
 				"Standard_GRS",
@@ -23,14 +22,12 @@
 		},
         "cosmosDBAccountName": {
             "type": "string",
-			"defaultValue": "missingchildrendata44",
             "metadata": {
                 "description": "mcsc-supporting-api"
             }
         },
 		"serviceBusNamespaceName": {
 			"type": "string",
-			"defaultValue": "MCSCChildFinder",
 			"metadata": {
 				"description": "The Azure Service Bus namespace connection string."
 			}
