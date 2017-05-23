@@ -10,24 +10,28 @@
     },
     "tofilter_queue_name": {
       "type": "string",
+      "defaultValue": "tofilter",
       "metadata": {
         "description": "Name of the Service Bus Queue"
       }
     },
     "tostructure_queue_name": {
       "type": "string",
+      "defaultValue": "tostructure",
       "metadata": {
         "description": "Name of the Service Bus Queue"
         }
     },
     "tostore_queue_name": {
       "type": "string",
+      "defaultValue": "tostore",
       "metadata": {
         "description": "Name of the Service Bus Queue"
         }
     },
     "augment_topic_name": {
         "type": "string",
+      "defaultValue": "toaugment",
         "metadata": {
             "description": "Name of the Service Bus Topic"
         }
