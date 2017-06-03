@@ -1,7 +1,7 @@
 # Missing Children Society of Canada
 
 ## Description
-This repo contains all the required part to deploy the ChildFinder bot solution.
+All required Azure infrastructure in the form of ARM Templates.
 
 ## Quick start
 1) Clone
