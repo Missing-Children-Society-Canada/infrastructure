@@ -6,37 +6,37 @@
       "value": "PL99-mscs-cf-functions"
     },
     "storageAccountType": {
-      "value":"Standard_LRS"
+      "value": "Standard_LRS"
     },
     "cosmosDBAccountName": {
-      "value":"missingchildrendata55"
+      "value": "missingchildrendata55"
     },
-     "serviceBusNamespaceName": {
-      "value":"MCSCChildFinderPL"
+    "serviceBusNamespaceName": {
+      "value": "MCSCChildFinderPL"
     },
-   "facebookToken": {
-    "value":"123456789"
+    "facebookToken": {
+      "value": ""
     },
-   "TwitterConsumerKey": {
-    "value":"123456789"
+    "TwitterConsumerKey": {
+      "value": ""
     },
-   "TwitterConsumerSecret": {
-    "value":"123456789"
+    "TwitterConsumerSecret": {
+      "value": ""
     },
-   "TwitterAccessTokenKey": {
-    "value":"123456789"
+    "TwitterAccessTokenKey": {
+      "value": ""
     },
-   "TwitterAccessTokenSecret": {
-    "value":"123456789"
+    "TwitterAccessTokenSecret": {
+      "value": ""
     },
-   "instagramToken": {
-    "value":"123456789"
+    "instagramToken": {
+      "value": ""
     },
-   "repoURL": {
-    "value":"https://github.com/Missing-Children-Society-Canada/messaging"
+    "repoURL": {
+      "value": "https://github.com/Missing-Children-Society-Canada/messaging"
     },
     "branch": {
-      "value":"master"
+      "value": "master"
     }
   }
 }
