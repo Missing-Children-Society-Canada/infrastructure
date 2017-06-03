@@ -9,5 +9,5 @@ All required Azure infrastructure in the form of ARM Templates.
 - mcsc-serviceBus.parameters.json
 - TwitterPull-LogicApp.parameters.json
 - mcsc-webhook.parameters.json
-- mscs-cf-functions-v2.parameters.json
+- [mscs-cf-functions-v2.parameters.json](https://github.com/Missing-Children-Society-Canada/infrastructure/blob/master/mscs-cf-functions-v2.parameters.json)
 3) Powershell dev-deploy.ps1 $resourceGroupName $location

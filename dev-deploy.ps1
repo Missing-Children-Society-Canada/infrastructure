@@ -18,6 +18,3 @@ az group deployment create --name DeployLogicApp --resource-group $resourceGroup
 az group deployment create --name DeployWebHooksFunctionApp --resource-group $resourceGroupName --template-file mcsc-webhook.json --parameters @mcsc-webhook.parameters.json
 
 az group deployment create --name DeployCFFunctionApp --resource-group $resourceGroupName --template-file mscs-cf-functions-v2.json --parameters @mscs-cf-functions-v2.parameters.json
-
-
-
