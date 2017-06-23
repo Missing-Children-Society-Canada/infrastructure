@@ -7,7 +7,6 @@ echo '             variables'
 echo '*****************************************************'
 echo ' '
 
-
 resourceGroupName='mcsc-test'
 location='westus'
 name='missingchildrendata2'
@@ -72,7 +71,6 @@ echo '             create collections'
 echo '*****************************************************'
 echo ' '
 
-
 echo 'create collection profile'
 
 # Create a collection
@@ -109,4 +107,3 @@ az cosmosdb collection create \
         --db-name $userdatabaseName \
         --resource-group $resourceGroupName
 fi
-
