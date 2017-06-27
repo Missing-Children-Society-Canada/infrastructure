@@ -9,22 +9,21 @@
         "description": "Name of the CognitiveText service"
       }
     }
-},
+  },
   "variables": {},
-  "resources": 
-    [
-        {
-            "type": "Microsoft.CognitiveServices/accounts",
-            "sku": {
-                "name": "F0"
-            },
-            "kind": "TextAnalytics",
-            "name": "[parameters('CognitiveTextName')]",
-            "apiVersion": "2016-02-01-preview",
-            "location": "westus",
-            "properties": {},
-            "dependsOn": []
-        }
+  "resources": [
+    {
+      "type": "Microsoft.CognitiveServices/accounts",
+      "sku": {
+        "name": "F0"
+      },
+      "kind": "TextAnalytics",
+      "name": "[parameters('CognitiveTextName')]",
+      "apiVersion": "2016-02-01-preview",
+      "location": "westus",
+      "properties": {},
+      "dependsOn": []
+    }
   ],
-    "outputs": {}
+  "outputs": {}
 }
