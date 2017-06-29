@@ -1,283 +1,285 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "serviceBusNamespaceName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the Service Bus Namespace"
-      }
-    },
-    "tofilter_queue_name": {
-      "type": "string",
-      "defaultValue": "tofilter",
-      "metadata": {
-        "description": "Name of the Service Bus Queue"
-      }
-    },
-    "tostructure_queue_name": {
-      "type": "string",
-      "defaultValue": "tostructure",
-      "metadata": {
-        "description": "Name of the Service Bus Queue"
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serviceBusNamespaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the Service Bus Namespace"
+            }
+        },
+        "tofilter_queue_name": {
+            "type": "string",
+            "defaultValue": "tofilter",
+            "metadata": {
+                "description": "Name of the Service Bus Queue"
+            }
+        },
+        "tostructure_queue_name": {
+            "type": "string",
+            "defaultValue": "tostructure",
+            "metadata": {
+                "description": "Name of the Service Bus Queue"
+            }
+        },
+        "tostore_queue_name": {
+            "type": "string",
+            "defaultValue": "tostore",
+            "metadata": {
+                "description": "Name of the Service Bus Queue"
+            }
+        },
+        "augment_topic_name": {
+            "type": "string",
+            "defaultValue": "toaugment",
+            "metadata": {
+                "description": "Name of the Service Bus Topic"
+            }
         }
     },
-    "tostore_queue_name": {
-      "type": "string",
-      "defaultValue": "tostore",
-      "metadata": {
-        "description": "Name of the Service Bus Queue"
-        }
+    "variables": {
+        "sbVersion": "2015-08-01",
+        "mediaSubscriptionName_suffix": "_media_augment",
+        "mediaSubscriptionRule_suffix": "_media_rule",
+        "profileSubscriptionName_suffix": "_profile_augment",
+        "profileSubscriptionRule_suffix": "_profile_rule",
+        "facebook_media_subscription_name": "[concat('facebook', variables('mediaSubscriptionName_suffix'))]",
+        "facebook_media_rule_name": "[concat('facebook', variables('mediaSubscriptionRule_suffix'))]",
+        "facebook_profile_subscription_name": "[concat('facebook', variables('profileSubscriptionName_suffix'))]",
+        "facebook_profile_rule_name": "[concat('facebook', variables('profileSubscriptionRule_suffix'))]",
+        "instagram_media_subscription_name": "[concat('instagram', variables('mediaSubscriptionName_suffix'))]",
+        "instagram_media_rule_name": "[concat('instagram', variables('mediaSubscriptionRule_suffix'))]",
+        "instagram_profile_subscription_name": "[concat('instagram', variables('profileSubscriptionName_suffix'))]",
+        "instagram_profile_rule_name": "[concat('instagram', variables('profileSubscriptionRule_suffix'))]",
+        "twitter_media_subscription_name": "[concat('twitter', variables('mediaSubscriptionName_suffix'))]",
+        "twitter_media_rule_name": "[concat('twitter', variables('mediaSubscriptionRule_suffix'))]",
+        "twitter_profile_subscription_name": "[concat('twitter', variables('profileSubscriptionName_suffix'))]",
+        "twitter_profile_rule_name": "[concat('twitter', variables('profileSubscriptionRule_suffix'))]",
+        "defaultSASKeyName": "RootManageSharedAccessKey",
+        "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
     },
-    "augment_topic_name": {
-        "type": "string",
-      "defaultValue": "toaugment",
-        "metadata": {
-            "description": "Name of the Service Bus Topic"
-        }
-    }
-},
-  "variables": {
-    "sbVersion": "2015-08-01",
-    "mediaSubscriptionName_suffix": "_media_augment",
-    "mediaSubscriptionRule_suffix": "_media_rule",
-    "profileSubscriptionName_suffix": "_profile_augment",
-    "profileSubscriptionRule_suffix": "_profile_rule",
-
-    "facebook_media_subscription_name": "[concat('facebook', variables('mediaSubscriptionName_suffix'))]",
-    "facebook_media_rule_name": "[concat('facebook', variables('mediaSubscriptionRule_suffix'))]",
-    "facebook_profile_subscription_name": "[concat('facebook', variables('profileSubscriptionName_suffix'))]",
-    "facebook_profile_rule_name": "[concat('facebook', variables('profileSubscriptionRule_suffix'))]",
-
-    "instagram_media_subscription_name": "[concat('instagram', variables('mediaSubscriptionName_suffix'))]",
-    "instagram_media_rule_name": "[concat('instagram', variables('mediaSubscriptionRule_suffix'))]",
-    "instagram_profile_subscription_name": "[concat('instagram', variables('profileSubscriptionName_suffix'))]",
-    "instagram_profile_rule_name": "[concat('instagram', variables('profileSubscriptionRule_suffix'))]",
-
-    "twitter_media_subscription_name": "[concat('twitter', variables('mediaSubscriptionName_suffix'))]",
-    "twitter_media_rule_name": "[concat('twitter', variables('mediaSubscriptionRule_suffix'))]",
-    "twitter_profile_subscription_name": "[concat('twitter', variables('profileSubscriptionName_suffix'))]",
-    "twitter_profile_rule_name": "[concat('twitter', variables('profileSubscriptionRule_suffix'))]",
-
-    "defaultSASKeyName": "RootManageSharedAccessKey",
-    "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
-  },
-  "resources": [
-    {
-      "apiVersion": "[variables('sbVersion')]",
-      "name": "[parameters('serviceBusNamespaceName')]",
-      "type": "Microsoft.ServiceBus/namespaces",
-      "location": "[resourceGroup().location]",
-      "properties": {
-      },
-      "resources": [
+    "resources": [
         {
             "apiVersion": "[variables('sbVersion')]",
-            "name": "[parameters('tofilter_queue_name')]",
-            "type": "Queues",
-            "dependsOn": [
-                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-            ],
-            "properties": {
-            },
+            "name": "[parameters('serviceBusNamespaceName')]",
+            "type": "Microsoft.ServiceBus/namespaces",
+            "location": "[resourceGroup().location]",
+            "properties": {},
             "resources": [
-            ]
-        },
-        {
-            "apiVersion": "[variables('sbVersion')]",
-            "name": "[parameters('tostructure_queue_name')]",
-            "type": "Queues",
-            "dependsOn": [
-                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-            ],
-            "properties": {
-            },
-            "resources": [
-            ]
-        },
-        {
-            "apiVersion": "[variables('sbVersion')]",
-            "name": "[parameters('tostore_queue_name')]",
-            "type": "Queues",
-            "dependsOn": [
-                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-            ],
-            "properties": {
-            },
-            "resources": [
-            ]
-        },
-        {
-            "apiVersion": "[variables('sbVersion')]",
-            "name": "[parameters('augment_topic_name')]",
-            "type": "Topics",
-            "dependsOn": [
-                "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
-            ],
-            "properties": {
-                "path": "[parameters('augment_topic_name')]"
-            },
-            "resources":
-            [
                 {
                     "apiVersion": "[variables('sbVersion')]",
-                    "name": "[variables('facebook_media_subscription_name')]",
-                    "type": "Subscriptions",
+                    "name": "[parameters('tofilter_queue_name')]",
+                    "type": "Queues",
                     "dependsOn": [
-                        "[parameters('augment_topic_name')]"
+                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
                     ],
                     "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "[variables('facebook_media_rule_name')]",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "[variables('facebook_media_subscription_name')]"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "platform='facebook'"
-                            }
-                        }
-                    }]
+                    "resources": []
                 },
                 {
                     "apiVersion": "[variables('sbVersion')]",
-                    "name": "[variables('facebook_profile_subscription_name')]",
-                    "type": "Subscriptions",
+                    "name": "[parameters('tostructure_queue_name')]",
+                    "type": "Queues",
                     "dependsOn": [
-                        "[parameters('augment_topic_name')]"
+                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
                     ],
                     "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "[variables('facebook_profile_rule_name')]",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "[variables('facebook_profile_subscription_name')]"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "hasfacebook=true"
-                            }
-                        }
-                    }]
+                    "resources": []
                 },
                 {
                     "apiVersion": "[variables('sbVersion')]",
-                    "name": "[variables('instagram_media_subscription_name')]",
-                    "type": "Subscriptions",
+                    "name": "[parameters('tostore_queue_name')]",
+                    "type": "Queues",
                     "dependsOn": [
-                        "[parameters('augment_topic_name')]"
+                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
                     ],
                     "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "[variables('instagram_media_rule_name')]",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "[variables('instagram_media_subscription_name')]"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "platform='instagram'"
-                            }
-                        }
-                    }]
+                    "resources": []
                 },
                 {
                     "apiVersion": "[variables('sbVersion')]",
-                    "name": "[variables('instagram_profile_subscription_name')]",
-                    "type": "Subscriptions",
+                    "name": "[parameters('augment_topic_name')]",
+                    "type": "Topics",
                     "dependsOn": [
-                        "[parameters('augment_topic_name')]"
+                        "[concat('Microsoft.ServiceBus/namespaces/', parameters('serviceBusNamespaceName'))]"
                     ],
-                    "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "[variables('instagram_profile_rule_name')]",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "[variables('instagram_profile_subscription_name')]"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "hasinstagram=true"
-                            }
+                    "properties": {
+                        "path": "[parameters('augment_topic_name')]"
+                    },
+                    "resources": [
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "[variables('facebook_media_subscription_name')]",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "[variables('facebook_media_rule_name')]",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "[variables('facebook_media_subscription_name')]"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "platform='facebook'"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "[variables('facebook_profile_subscription_name')]",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "[variables('facebook_profile_rule_name')]",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "[variables('facebook_profile_subscription_name')]"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "hasfacebook=true"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "[variables('instagram_media_subscription_name')]",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "[variables('instagram_media_rule_name')]",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "[variables('instagram_media_subscription_name')]"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "platform='instagram'"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "[variables('instagram_profile_subscription_name')]",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "[variables('instagram_profile_rule_name')]",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "[variables('instagram_profile_subscription_name')]"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "hasinstagram=true"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "[variables('twitter_media_subscription_name')]",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "[variables('twitter_media_rule_name')]",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "[variables('twitter_media_subscription_name')]"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "platform='twitter'"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "[variables('twitter_profile_subscription_name')]",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "[variables('twitter_profile_rule_name')]",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "[variables('twitter_profile_subscription_name')]"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "hastwitter=true"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "apiVersion": "[variables('sbVersion')]",
+                            "name": "notify",
+                            "type": "Subscriptions",
+                            "dependsOn": [
+                                "[parameters('augment_topic_name')]"
+                            ],
+                            "properties": {},
+                            "resources": [
+                                {
+                                    "apiVersion": "[variables('sbVersion')]",
+                                    "name": "notify_rule",
+                                    "type": "Rules",
+                                    "dependsOn": [
+                                        "notify"
+                                    ],
+                                    "properties": {
+                                        "filter": {
+                                            "sqlExpression": "1=1"
+                                        }
+                                    }
+                                }
+                            ]
                         }
-                    }]
-                },
-                {
-                    "apiVersion": "[variables('sbVersion')]",
-                    "name": "[variables('twitter_media_subscription_name')]",
-                    "type": "Subscriptions",
-                    "dependsOn": [
-                        "[parameters('augment_topic_name')]"
-                    ],
-                    "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "[variables('twitter_media_rule_name')]",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "[variables('twitter_media_subscription_name')]"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "platform='twitter'"
-                            }
-                        }
-                    }]
-                },
-                {
-                    "apiVersion": "[variables('sbVersion')]",
-                    "name": "[variables('twitter_profile_subscription_name')]",
-                    "type": "Subscriptions",
-                    "dependsOn": [
-                        "[parameters('augment_topic_name')]"
-                    ],
-                    "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "[variables('twitter_profile_rule_name')]",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "[variables('twitter_profile_subscription_name')]"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "hastwitter=true"
-                            }
-                        }
-                    }]
-                },
-                {
-                    "apiVersion": "[variables('sbVersion')]",
-                    "name": "notify",
-                    "type": "Subscriptions",
-                    "dependsOn": [
-                        "[parameters('augment_topic_name')]"
-                    ],
-                    "properties": {},
-                    "resources": [{
-                        "apiVersion": "[variables('sbVersion')]",
-                        "name": "notify_rule",
-                        "type": "Rules",
-                        "dependsOn": [
-                            "notify"
-                        ],
-                        "properties": {
-                            "filter": {
-                                "sqlExpression": "1=1"
-                            }
-                        }
-                    }]
+                    ]
                 }
             ]
         }
-      ]
-    }
-  ],
+    ],
     "outputs": {
         "NamespaceConnectionString": {
             "type": "string",
