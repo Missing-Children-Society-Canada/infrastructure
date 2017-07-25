@@ -6,22 +6,22 @@
       "value": "PL88-mcsc-webhook"
     },
     "storageAccountType": {
-      "value":"Standard_LRS"
+      "value": "Standard_LRS"
     },
-     "serviceBusNamespaceName": {
-      "value":"MCSCChildFinderPL"
+    "serviceBusNamespaceName": {
+      "value": "MCSCChildFinderPL"
     },
-   "facebookToken": {
-    "value":"123456789"
+    "facebookToken": {
+      "value": "123456789"
     },
-   "instagramToken": {
-    "value":"123456789"
+    "instagramToken": {
+      "value": "123456789"
     },
-   "repoURL": {
-    "value":"https://github.com/Missing-Children-Society-Canada/webhooks"
+    "repoURL": {
+      "value": "https://github.com/Missing-Children-Society-Canada/webhooks"
     },
     "branch": {
-      "value":"master"
+      "value": "master"
     }
   }
 }

@@ -6,19 +6,19 @@
       "value": "twitter-pull"
     },
     "serviceBusNamespaceName": {
-      "value":"MCSCChildFinderPL"
+      "value": "MCSCChildFinderPL"
     },
     "serviceBusConnectionName": {
-      "value":"serviceBusConnection"
+      "value": "serviceBusConnection"
     },
     "serviceBusQueueName": {
-    "value":"toFilter"
+      "value": "toFilter"
     },
     "twitterConnectionName": {
-      "value":"twitterConnection"
+      "value": "twitterConnection"
     },
     "twitterHashtag": {
-      "value":"HFMTest"
+      "value": "HFMTest"
     }
   }
 }

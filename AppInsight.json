@@ -11,7 +11,6 @@
             "defaultValue": "mcsc-authorization"
         }
     },
-    "variables": {},
     "resources": [
         {
             "name": "appinsights",

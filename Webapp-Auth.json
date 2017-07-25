@@ -8,7 +8,7 @@
         },
         "cosmosDBAccountName": {
             "type": "string",
-			"defaultValue": "missingchildrendata2",
+            "defaultValue": "missingchildrendata2",
             "metadata": {
                 "description": "mcsc-supporting-api"
             }
@@ -53,7 +53,7 @@
             "defaultValue": "",
             "type": "string"
         },
-        "WEBSITE_NODE_DEFAULT_VERSION":{
+        "WEBSITE_NODE_DEFAULT_VERSION": {
             "defaultValue": "",
             "type": "string"
         },
@@ -67,7 +67,6 @@
         }
     },
     "variables": {},
-
     "resources": [
         {
             "type": "Microsoft.Web/Sites",
@@ -132,9 +131,9 @@
                             "Value": "[parameters('PORTAL_APP_INSIGHTS_KEY')]"
                         }
                     ],
-                "RepoUrl": "[parameters('repoURL')]",
-                "branch": "[parameters('branch')]",
-                "IsManualIntegration": true
+                    "RepoUrl": "[parameters('repoURL')]",
+                    "branch": "[parameters('branch')]",
+                    "IsManualIntegration": true
                 }
             }
         }

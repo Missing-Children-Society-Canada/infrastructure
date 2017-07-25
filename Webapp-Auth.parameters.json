@@ -18,26 +18,26 @@
             "value": ""
         },
         "IG_VERIFY_TOKEN": {
-           "value": ""
+            "value": ""
         },
         "FACEBOOK_CONSUMER_KEY": {
-           "value": ""
+            "value": ""
         },
         "FACEBOOK_CONSUMER_SECRET": {
-           "value": ""
+            "value": ""
         },
         "INSTAGRAM_CONSUMER_KEY": {
-           "value": ""
+            "value": ""
         },
         "INSTAGRAM_CONSUMER_SECRET": {
-           "value": ""
+            "value": ""
         },
         "PORTAL_APP_INSIGHTS_KEY": {
-           "value": ""
-        },
-        "WEBSITE_NODE_DEFAULT_VERSION":{
             "value": ""
-         },
+        },
+        "WEBSITE_NODE_DEFAULT_VERSION": {
+            "value": ""
+        },
         "repoURL": {
             "value": "https://github.com/Missing-Children-Society-Canada/authorization"
         },

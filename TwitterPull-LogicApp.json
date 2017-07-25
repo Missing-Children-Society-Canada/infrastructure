@@ -29,138 +29,137 @@
         "twitterConnectionName": {
             "type": "string",
             "metadata": {
-            "description": "The name of the queue to add a message to."
+                "description": "The name of the queue to add a message to."
             }
         },
         "twitterHashtag": {
             "type": "string",
             "metadata": {
-            "description": "The Hashtag we are tracking in Twitter"
+                "description": "The Hashtag we are tracking in Twitter"
             }
         }
     },
     "variables": {
-        "$singleQuote":"'",
+        "$singleQuote": "'",
         "sbVersion": "2015-08-01",
         "defaultSASKeyName": "RootManageSharedAccessKey",
         "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
-        
     },
     "resources": [
-    {
-        "type": "Microsoft.Web/connections",
-        "apiVersion": "2016-06-01",
-        "location": "[resourceGroup().location]",
-        "name": "[parameters('serviceBusConnectionName')]",
-        "properties": {
-            "api": {
-                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]"
-            },
-            "displayName": "servicebus",
-            "parameterValues": {
-                "connectionString": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
-            }
-        }
-    },
-    {
-        "type": "Microsoft.Web/connections",
-        "apiVersion": "2016-06-01",
-        "location": "[resourceGroup().location]",
-        "name": "[parameters('twitterConnectionName')]",
-        "properties": {
-            "api": {
-                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/twitter')]"
-            },
-            "displayName": "twitter",
-            "parameterValues": {}
-        }
-    },
-    {
-        "type": "Microsoft.Logic/workflows",
-        "apiVersion": "2016-06-01",
-        "name": "[parameters('logicAppName')]",
-        "location": "[resourceGroup().location]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnectionName'))]",
-            "[resourceId('Microsoft.Web/connections', parameters('twitterConnectionName'))]"
-        ],
-        "properties": {
-            "definition": {
-                "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                "contentVersion": "1.0.0.0",
-                "parameters": {
-                    "$connections": {
-                        "defaultValue": {},
-                        "type": "Object"
-                    }
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "location": "[resourceGroup().location]",
+            "name": "[parameters('serviceBusConnectionName')]",
+            "properties": {
+                "api": {
+                    "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]"
                 },
-                "triggers": {
-                    "When_a_new_tweet_is_posted": {
-                        "recurrence": {
-                            "frequency": "Minute",
-                            "interval": 1
-                        },
-                        "splitOn": "@triggerBody()?.value",
-                        "type": "ApiConnection",
-                        "inputs": {
-                            "host": {
-                                "api": {
-                                    "runtimeUrl": "[concat('https://logic-apis-', resourceGroup().location, '.azure-apim.net/apim/twitter')]"
-                                },
-                                "connection": {
-                                    "name": "@parameters('$connections')['twitter']['connectionId']"
-                                }
+                "displayName": "servicebus",
+                "parameterValues": {
+                    "connectionString": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "location": "[resourceGroup().location]",
+            "name": "[parameters('twitterConnectionName')]",
+            "properties": {
+                "api": {
+                    "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/twitter')]"
+                },
+                "displayName": "twitter",
+                "parameterValues": {}
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('logicAppName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnectionName'))]",
+                "[resourceId('Microsoft.Web/connections', parameters('twitterConnectionName'))]"
+            ],
+            "properties": {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_a_new_tweet_is_posted": {
+                            "recurrence": {
+                                "frequency": "Minute",
+                                "interval": 1
                             },
-                            "method": "get",
-                            "path": "/onnewtweet",
-                            "queries": {
-                                "searchQuery": "[parameters('twitterHashtag')]"
+                            "splitOn": "@triggerBody()?.value",
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "api": {
+                                        "runtimeUrl": "[concat('https://logic-apis-', resourceGroup().location, '.azure-apim.net/apim/twitter')]"
+                                    },
+                                    "connection": {
+                                        "name": "@parameters('$connections')['twitter']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "/onnewtweet",
+                                "queries": {
+                                    "searchQuery": "[parameters('twitterHashtag')]"
+                                }
                             }
                         }
-                    }
-                },
-                "actions": {
-                    "Send_message": {
-                        "runAfter": {},
-                        "type": "ApiConnection",
-                        "inputs": {
-                            "body": {
-                                "ContentData": "@{base64(json(concat('{\"mediaid\":\"',triggerBody()?['TweetId'],'\",\"userid\":\"',triggerBody()?['UserDetails']?['Id'],'\",\"platform\":\"twitter\"}')))}",
-                                "ContentType": "application/json"
-                            },
-                            "host": {
-                                "api": {
-                                    "runtimeUrl": "[concat('https://logic-apis-', resourceGroup().location, '.azure-apim.net/apim/servicebus')]"
+                    },
+                    "actions": {
+                        "Send_message": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "ContentData": "@{base64(json(concat('{\"mediaid\":\"',triggerBody()?['TweetId'],'\",\"userid\":\"',triggerBody()?['UserDetails']?['Id'],'\",\"platform\":\"twitter\"}')))}",
+                                    "ContentType": "application/json"
                                 },
-                                "connection": {
-                                    "name": "@parameters('$connections')['servicebus']['connectionId']"
-                                }
-                            },
-                            "method": "post",
-                            "path": "/@{encodeURIComponent('tofilter')}/messages"
+                                "host": {
+                                    "api": {
+                                        "runtimeUrl": "[concat('https://logic-apis-', resourceGroup().location, '.azure-apim.net/apim/servicebus')]"
+                                    },
+                                    "connection": {
+                                        "name": "@parameters('$connections')['servicebus']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/@{encodeURIComponent('tofilter')}/messages"
+                            }
                         }
-                    }
+                    },
+                    "outputs": {}
                 },
-                "outputs": {}
-            },
-            "parameters": {
-                "$connections": {
-                    "value": {
-                        "servicebus": {
-                            "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]",
-                            "connectionId": "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnectionName'))]",
-                            "connectionName": "servicebus"
-                        },
-                        "twitter": {
-                            "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/twitter')]",
-                            "connectionId": "[resourceId('Microsoft.Web/connections', parameters('twitterConnectionName'))]",
-                            "connectionName": "twitter"
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "servicebus": {
+                                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnectionName'))]",
+                                "connectionName": "servicebus"
+                            },
+                            "twitter": {
+                                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/twitter')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('twitterConnectionName'))]",
+                                "connectionName": "twitter"
+                            }
                         }
                     }
                 }
             }
         }
-    }
     ],
     "outputs": {}
 }
