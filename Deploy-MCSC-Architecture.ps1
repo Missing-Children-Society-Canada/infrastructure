@@ -7,8 +7,6 @@ $ErrorActionPreference = "Stop"
 $WarningPreference = "SilentlyContinue"
 $starttime = get-date
 
-#az component update --add cosmosdb
-
 #region Prep & signin
 # sign in
 Write-Host "Logging in ...";
@@ -29,6 +27,24 @@ $Location = Read-Host -Prompt 'Input the Location for your Resource Group'
 # CosmosDB Account Name
 $DBAccountName = Read-Host -Prompt 'Input the CosmosDB Account Name'
 $DBAccountName = $DBAccountName.ToLower()
+
+# Service Bus Name
+$serviceBusNamespace = Read-Host -Prompt 'Input the Service Bus Name Space'
+$serviceBusNamespace = $serviceBusNamespace.ToLower()
+
+# Function Name
+$FunctionName = Read-Host -Prompt 'Input the Unique Function Name'
+$FunctionName = $FunctionName.ToLower()
+
+# Web App Auth Site Name
+$WebAppAuthName = Read-Host -Prompt 'Input the Unique Web App Auth site Name'
+$WebAppAuthName = $WebAppAuthName.ToLower()
+
+WebAppPortal
+
+# Web App Portal Site Name
+$WebAppPortalName = Read-Host -Prompt 'Input the Unique Web App Portal site Name'
+$WebAppPortalName = $WebAppPortalName.ToLower()
 
 # DB & collections names in the CosmosDB Account
 $reportingdatabaseName = "reporting"
@@ -96,15 +112,17 @@ Write-Output  '             DB account'
 Write-Output  '*****************************************************'
 
 # Create a MongoDB API Cosmos DB account
+
+Write-Output "Deploying CosmosDB Account..."
 az cosmosdb create --name $DBAccountName.ToLower() --kind GlobalDocumentDB --resource-group $resourceGroupName --max-interval 10 --max-staleness-prefix 200 | out-null
 
 Write-Output  '*****************************************************'
 Write-Output  '             create DB'
 Write-Output  '*****************************************************'
 
-Write-Output  'Create Reporting Database'
-
 # Create a database
+
+Write-Output "Deploying Reporting Database..."
 $value = az cosmosdb database exists --db-name $reportingdatabaseName --resource-group-name $resourceGroupName --name $DBAccountName | out-null
 
 if ($value -ne "true")
@@ -114,7 +132,7 @@ if ($value -ne "true")
 
 # Create a database
 
-Write-Output  'Create Users Database'
+Write-Output "Deploying Reporting Database..."
 
 $value=az cosmosdb database exists --db-name $userdatabaseName --resource-group-name $resourceGroupName --name $DBAccountName | out-null
 
@@ -131,11 +149,11 @@ Write-Output  'create collection events'
 
 # Create a collection
 
-$value = az cosmosdb collection exists --collection-name $eventscollectionName --db-name $reportingdatabaseName --resource-group-name $resourceGroupName --name $DBAccountName
+$value = az cosmosdb collection exists --collection-name $eventscollectionName --db-name $reportingdatabaseName --resource-group-name $resourceGroupName --name $DBAccountName | out-null
 
 if ($value -ne "true")
 {
-    az cosmosdb collection create --collection-name $eventscollectionName --name $DBAccountName --db-name $reportingdatabaseName --resource-group $resourceGroupName
+    az cosmosdb collection create --collection-name $eventscollectionName --name $DBAccountName --db-name $reportingdatabaseName --resource-group $resourceGroupName | out-null
 }
 
 # Create a collection
@@ -160,13 +178,14 @@ $DeploymentName = 'ServiceBuss-'+ $Date
 
 $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $ResourceGroupName -TemplateUri $ServiceBusTemplate -TemplateParameterObject `
     @{ `
-        serviceBusNamespaceName = "MCSCChildFinderPL"; `
+        serviceBusNamespaceName = $serviceBusNamespace.ToString(); `
         tofilter_queue_name="tofilter"; `
         tostructure_queue_name="tostructure"; `
         tostore_queue_name="tostore"; `
         augment_topic_name="toaugment"; `
-    } -Force | out-null
+    } -Force
 
+Write-Output $Results.DeploymentName 'completed with provisioning state :' $Results.ProvisioningState 
 Write-Output  '*****************************************************'
 
 #endregion
@@ -179,13 +198,14 @@ $DeploymentName = 'TwitterPull-'+ $Date
 $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $ResourceGroupName -TemplateUri $TwitterPullTemplate -TemplateParameterObject `
     @{ `
         logicAppName="twitter-pull"; `
-        serviceBusNamespaceName="MCSCChildFinderPL"; `
+        serviceBusNamespaceName=$serviceBusNamespace.ToString(); `
         serviceBusConnectionName="serviceBusConnection"; `
         serviceBusQueueName="toFilter"; `
         twitterConnectionName="twitterConnection"; `
         twitterHashtag="HFMTest"; `
-    } -Force | out-null
+    } -Force
 
+Write-Output $Results.DeploymentName 'completed with provisioning state :' $Results.ProvisioningState 
 Write-Output  '*****************************************************'
 
 #endregion
@@ -197,10 +217,10 @@ $DeploymentName = 'Functions-'+ $Date
 
 $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $ResourceGroupName -TemplateUri $FunctionsTemplate -TemplateParameterObject `
     @{ `
-        functionAppsName="PL99-mscs-cf-functions"; `
+        functionAppsName=$FunctionName.ToLower(); `
         storageAccountType="Standard_LRS"; `
         cosmosDBAccountName=$DBAccountName.tostring(); `
-        serviceBusNamespaceName="MCSCChildFinderPL"; `
+        serviceBusNamespaceName=$serviceBusNamespace.ToString(); `
         facebookToken=""; `
         TwitterConsumerKey=""; `
         TwitterConsumerSecret=""; `
@@ -209,8 +229,8 @@ $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGro
         instagramToken=""; `
         repoURL="https://github.com/Missing-Children-Society-Canada/messaging"; `
         branch="master"; `
-    } -Force | out-null
-
+    } -Force
+Write-Output $Results.DeploymentName 'completed with provisioning state :' $Results.ProvisioningState 
 Write-Output  '*****************************************************'
 
 #endregion
@@ -224,13 +244,14 @@ $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGro
     @{ `
         functionAppsName="PL88-mcsc-webhook"; `
         storageAccountType="Standard_LRS"; `
-        serviceBusNamespaceName="MCSCChildFinderPL"; `
+        serviceBusNamespaceName=$serviceBusNamespace.ToString(); `
         facebookToken="123456789"; `
         instagramToken="123456789"; `
         repoURL="https://github.com/Missing-Children-Society-Canada/webhooks"; `
         branch="master"; `
-    } -Force | out-null
+    } -Force
 
+Write-Output $Results.DeploymentName 'completed with provisioning state :' $Results.ProvisioningState 
 Write-Output  '*****************************************************'
 
 #endregion
@@ -242,7 +263,8 @@ $DeploymentName = 'WebAppAuth-'+ $Date
 
 $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $ResourceGroupName -TemplateUri $WebAppTemplate -TemplateParameterObject `
     @{ `
-        sites_MCSC_Authorization_name="mcsc-authorization-pr"; `
+        sites_MCSC_Authorization_name=$WebAppAuthName.ToLower(); `
+        cosmosDBAccountName=$DBAccountName.tostring(); `
         TWITTER_CONSUMER_KEY=""; `
         TWITTER_CONSUMER_SECRET=""; `
         ROOT=""; `
@@ -256,8 +278,9 @@ $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGro
         WEBSITE_NODE_DEFAULT_VERSION=""; `
         repoURL="https://github.com/Missing-Children-Society-Canada/authorization"; `
         branch="master"; `
-    } -Force | out-null
+    } -Force
 
+Write-Output $Results.DeploymentName 'completed with provisioning state :' $Results.ProvisioningState 
 Write-Output  '*****************************************************'
 
 #endregion
@@ -269,14 +292,13 @@ $DeploymentName = 'WebAppPortal-'+ $Date
 
 $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGroupName $ResourceGroupName -TemplateUri $PortalTemplate -TemplateParameterObject `
     @{ `
-        sites_MCSC_Authorization_name="mcsc-portal-dev"; `
+        sites_MCSC_Authorization_name=$WebAppPortalName.ToLower(); `
         APP_INSIGHTS_KEY=""; `
         repoURL="https://github.com/Missing-Children-Society-Canada/portal-node"; `
         branch="master"; `
-    } -Force | out-null
+    } -Force
 
-Write-Output $Results.
-
+Write-Output $Results.DeploymentName 'completed with provisioning state :' $Results.ProvisioningState 
 Write-Output  '*****************************************************'
 
 #endregion
