@@ -271,7 +271,7 @@ $Results = New-AzureRmResourceGroupDeployment -Name $DeploymentName -ResourceGro
     @{ `
         sites_MCSC_Authorization_name="mcsc-portal-dev"; `
         APP_INSIGHTS_KEY=""; `
-        repoURL="https://github.com/Missing-Children-Society-Canada/portal"; `
+        repoURL="https://github.com/Missing-Children-Society-Canada/portal-node"; `
         branch="master"; `
     } -Force | out-null
 
